@@ -1,0 +1,96 @@
+.card-title {
+  margin-bottom: 4px;
+}
+
+.card-subtitle {
+  position: relative;
+  font-size: 0.875em;
+}
+
+.card-content {
+  margin-top: 17px;
+}
+
+.pkg-page {
+  position: absolute;
+  top:0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: transparent;
+  z-index: 1;
+}
+
+.pkg-info {
+  float: left;
+  font-size: 1.25em;
+  font-weight: bold;
+  color: #222;
+  width: 68%;
+}
+
+.pkg-name {
+  display: block;
+  float: left;
+  max-width: 70%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pkg-version {
+  font-size: 0.75em;
+  margin-left: 5px;
+}
+
+.pkg-rating
+{
+  position: relative;
+  float: right;
+  width: 100px;
+}
+
+.pkg-author {
+  margin-right: 4px;
+}
+
+a.pkg-author-page,
+a.pkg-author-page:active,
+a.pkg-author-page:visited {
+  position: absolute;
+  top: 0;
+  left: 20px;
+  color: #2c5499;
+  z-index: 2;
+}
+
+a.pkg-author-page:hover {
+  text-decoration: underline;
+}
+
+.pkg-desc {
+  position: relative;
+  max-height: 50px;
+  font-size: 0.875em;
+  text-align: justify;
+  line-height: 18px;
+  overflow: hidden;
+  padding-right: 1em;
+}
+
+.pkg-desc:before {
+  content: '...';
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+
+.pkg-desc:after {
+  content: '';
+  position: absolute;
+  right: 0;
+  width: 1em;
+  height: 1em;
+  margin-top: 0.2em;
+  background: white;
+}

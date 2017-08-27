@@ -1,0 +1,20 @@
+<div>
+  <a class="pkg-page" href="#"></a>
+  <div class="card-title">
+    <div class="pkg-info"><span class="pkg-name">{{package.name}}</span> <sub class="pkg-version">{{package.version}}</sub></div>
+    <div class="pkg-rating">
+      <div class="star-container">
+        <img *ngFor="let star of package.stars" [src]="star" alt="">
+      </div>
+    </div>
+  </div>
+
+  <div class="card-subtitle">
+    <div class="pkg-author">by</div>
+    <a class="pkg-author-page" href="#">{{package.authorName}}</a>
+  </div>
+
+  <div class="card-content">
+    <div class="pkg-desc">{{package.desc}}</div>
+  </div>
+</div>
