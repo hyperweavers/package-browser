@@ -22,7 +22,6 @@ import { PackageService } from './package.service';
 
 export class HomeComponent implements OnInit {
   packages: Observable<Package[]>;
-  packages2: Observable<Package[]>;
   private keywords = new Subject<string>();
 
   constructor(
@@ -34,10 +33,10 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.packages2 = this.packages = this.keywords
+    this.packages = this.keywords
       .debounceTime(300)
       .distinctUntilChanged()
-      .switchMap(keyword => keyword.length > 1
+      .switchMap(keyword => keyword
         ? this.packageService.searchByKeyword(keyword)
         : Observable.of<Package[]>([]))
       .catch(error => {
