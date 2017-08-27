@@ -32,6 +32,8 @@ export class PackageService {
     let responseObjects = response.json().objects;
 
     if (responseObjects.length > 0) {
+      console.log('Results found!');
+
       return response.json().objects.map(this.toPackage.bind(this));
     } else {
       console.info('No results found for the given keyword!');
