@@ -1,0 +1,63 @@
+<header class="header">
+  <section class="brand">
+    <div class="container">
+      <div class="content">
+        <a class="brand-content" routerLink="/">
+          <img class="logo" src="img/logo.svg" alt="Logo">
+          <h1 class="title">Package Browser</h1>
+        </a>
+
+        <div class="search-box">
+          <input id="search-field" autocomplete="off" required #searchBox (keyup)="search(searchBox.value)">
+          <label for="search-field">Search...</label>
+        </div>
+      </div>
+    </div>
+  </section>
+</header>
+
+<main>
+  <section class="page-view">
+    <div [class.page]="packages | async">
+      <div *ngIf="author; else basicAuthorInfo">
+        <div class="page-header">
+          <div class="author-info">
+            <img *ngIf="(author.avatarUrl && author.avatarUrl !== ''); else defaultAvatar" class="author-avatar" width="150px" height="150px" src="{{author.avatarUrl}}" alt="">
+            <ng-template #defaultAvatar><img class="author-avatar" width="150px" height="150px" src="img/icon-avatar.png" alt=""></ng-template>
+            <div class="author-name">{{author.name}}</div>
+            <div *ngIf="author.company && author.company !== ''" class="author-company-container"><img src="img/icon-company-20px.png" alt=""> <span>{{author.company}}</span></div>
+            <div *ngIf="author.location && author.location !== ''" class="author-location-container"><img src="img/icon-location-20px.png" alt=""> <span>{{author.location}}</span></div>
+            <a *ngIf="author.homepage && author.homepage !== ''" class="author-url" href="{{author.homepage}}" target="_blank">
+              <img src="img/icon-github-24px.png" alt="">
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <ng-template #basicAuthorInfo>
+        <div *ngFor="let package of packages | async; let last=last">
+          <div *ngIf="last">
+            <div class="page-header">
+              <div class="author-info">
+                <img class="author-avatar" width="150px" height="150px" src="img/icon-avatar.png" alt="">
+                <div class="author-name">{{package.authorName}}</div>
+                <a class="author-email" href="mailto:{{package.authorEmail}}">{{package.authorEmail}}</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+
+      <div class="container">
+        <card *ngFor="let package of packages | async" [package]="package" class="card"></card>
+
+        <div *ngIf="(packages | async)?.length == 0">Ooops!<br><br>There are no packages published by this author!</div>
+      </div>
+    </div>
+
+    <div class="no-results" [hidden]="packages | async">
+      <span [hidden]="!(searchBox.value.length > 0)">Ooops!<br><br>There are no packages that matched your query!</span>
+      <span [hidden]="searchBox.value.length > 0">Type some query to search a package!</span>
+    </div>
+  </section>
+</main>

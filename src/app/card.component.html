@@ -11,7 +11,7 @@
 
   <div class="card-subtitle">
     <div class="pkg-author">by</div>
-    <a class="pkg-author-page" href="#">{{package.authorName}}</a>
+    <a class="pkg-author-page" [routerLink]="['/author', package.authorName]">{{package.authorName}}</a>
   </div>
 
   <div class="card-content">

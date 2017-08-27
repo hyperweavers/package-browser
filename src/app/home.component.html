@@ -1,0 +1,62 @@
+<header class="header">
+  <section class="brand">
+    <div class="container">
+      <div class="content">
+        <div class="brand-content">
+          <img class="logo" src="img/logo.svg" alt="Logo">
+          <br>
+          <h1 class="title">Package Browser</h1>
+        </div>
+
+        <div class="search-box">
+          <input id="search-field" autocomplete="off" required #searchBox (keyup)="search(searchBox.value)">
+          <label for="search-field">Search...</label>
+        </div>
+      </div>
+    </div>
+  </section>
+</header>
+
+<main>
+  <section class="page-view">
+    <div class="container">
+      <div [class.page]="(packages | async)?.length">
+        <div *ngIf="((packages | async)?.length); else resultMsg">
+          <card *ngFor="let package of packages | async" [package]="package" class="card"></card>
+        </div>
+      </div>
+
+      <ng-template #resultMsg>
+        <div class="no-results">
+          <span *ngIf="(searchBox.value.length === 0); else errorMsg">Type some query to search a package!</span>
+          <ng-template #errorMsg>
+            <span>Ooops!<br><br>There are no packages that matched your query!</span>
+          </ng-template>
+        </div>
+      </ng-template>
+    </div>
+  </section>
+
+  <section class="publish-steps">
+    <div class="container">
+      <div class="how-to">How do I add my package to this list?</div>
+
+      <div class="row">
+        <div class="col col-3">
+          <div class="step-number">1</div>
+          <div class="step-content">Add proper keywords to your <strong><em>package.json</em></strong> file</div>
+        </div>
+
+        <div class="col col-3">
+          <div class="step-number">2</div>
+          <div class="step-content">Make sure your package is published to <strong><em>npm</em></strong></div>
+        </div>
+
+        <div class="col col-3">
+          <div class="step-number">3</div>
+          <div class="step-content">Wait for it to show up! Shouldn't take longer than an hour :)</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

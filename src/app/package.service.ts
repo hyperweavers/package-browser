@@ -22,6 +22,12 @@ export class PackageService {
             .map(this.mapPackages.bind(this));
   }
 
+  searchByAuthor(author: string): Observable<Package[]> {
+    return this.http
+            .get(`${this.baseUrl}/-/v1/search?text=author:${author}`)
+            .map(this.mapPackages.bind(this));
+  }
+
   private mapPackages(response:Response): Observable<Package[]> {
     let responseObjects = response.json().objects;
 
@@ -35,6 +41,12 @@ export class PackageService {
   }
 
   private toPackage(obj:any): Package {
+    let repoType = '';
+
+    if (obj.package.links.repository !== undefined && obj.package.links.repository !== null && obj.package.links.repository.indexOf('github') !== -1) {
+      repoType = 'git';
+    }
+
     let starRating = Math.round((obj.score.final * 10) / 2);
     let starImages = [];
 
@@ -51,8 +63,10 @@ export class PackageService {
       version: obj.package.version,
       desc: obj.package.description,
       authorName: obj.package.publisher.username,
+      authorEmail: obj.package.publisher.email,
       keywords: obj.package.keywords,
       homepage: obj.package.links.homepage,
+      repoType: repoType,
       repoUrl: obj.package.links.repository,
       npmUrl: obj.package.links.npm,
       publishDate: obj.package.date,

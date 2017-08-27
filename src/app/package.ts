@@ -3,8 +3,10 @@ export class Package {
   version: string;
   desc: string;
   authorName: string;
+  authorEmail: string;
   keywords: string[];
   homepage: string;
+  repoType: string;
   repoUrl: string;
   npmUrl: string;
   publishDate: string;
