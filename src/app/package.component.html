@@ -29,7 +29,7 @@
           <div class="pkg-written-by"><em>by</em></div>
 
           <div class="pkg-author-container">
-            <a class="pkg-author" href="mailto:{{package.authorEmail}}">{{package.authorName}}</a>
+            <a class="pkg-author" [routerLink]="['/author', package.authorName]">{{package.authorName}}</a>
           </div>
         </div>
 
