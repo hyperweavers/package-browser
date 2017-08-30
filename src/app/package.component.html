@@ -7,8 +7,8 @@
           <h1 class="title">Package Browser</h1>
         </a>
 
-        <div class="search-box" hidden>
-          <input id="search-field" autocomplete="off" required #searchBox (keyup)="search(searchBox.value)">
+        <div class="search-box">
+          <input id="search-field" autocomplete="off" required (focus)="loadSearchPage()">
           <label for="search-field">Search...</label>
         </div>
       </div>

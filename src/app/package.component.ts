@@ -1,7 +1,7 @@
-import { Component, OnInit }        from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { Component, OnInit }                from '@angular/core';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
-import { Observable }               from 'rxjs/Observable';
+import { Observable }                       from 'rxjs/Observable';
 
 import 'rxjs/add/operator/switchMap';
 
@@ -19,7 +19,12 @@ export class PackageComponent implements OnInit {
 
   constructor(
     private packageService: PackageService,
-    private route: ActivatedRoute) {}
+    private route: ActivatedRoute,
+    private router: Router) {}
+
+  loadSearchPage(): void {
+    this.router.navigate(['/search']);
+  }
 
   ngOnInit(): void {
     this.route.paramMap

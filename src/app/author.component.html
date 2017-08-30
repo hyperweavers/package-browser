@@ -7,8 +7,8 @@
           <h1 class="title">Package Browser</h1>
         </a>
 
-        <div class="search-box" hidden>
-          <input id="search-field" autocomplete="off" required #searchBox (keyup)="search(searchBox.value)">
+        <div class="search-box">
+          <input id="search-field" autocomplete="off" required (focus)="loadSearchPage()">
           <label for="search-field">Search...</label>
         </div>
       </div>
@@ -59,11 +59,6 @@
           <div class="no-results">Ooops!<br><br>There are no packages published by this author!</div>
         </ng-template>
       </div>
-    </div>
-
-    <div class="no-results" [hidden]="packages | async">
-      <span [hidden]="!(searchBox.value.length > 0)">Ooops!<br><br>There are no packages that matched your query!</span>
-      <span [hidden]="searchBox.value.length > 0">Type some query to search a package!</span>
     </div>
   </section>
 </main>

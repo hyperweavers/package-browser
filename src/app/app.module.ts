@@ -6,8 +6,9 @@ import { HttpModule }       from '@angular/http';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent }     from './app.component';
-import { HomeComponent }    from './home.component';
 import { CardComponent }    from './card.component';
+import { HomeComponent }    from './home.component';
+import { SearchComponent }  from './search.component';
 import { PackageComponent } from './package.component';
 import { AuthorComponent }  from './author.component';
 
@@ -22,8 +23,9 @@ import { PackageService }   from './package.service';
   ],
   declarations: [
     AppComponent,
-    HomeComponent,
     CardComponent,
+    HomeComponent,
+    SearchComponent,
     PackageComponent,
     AuthorComponent
   ],

@@ -2,15 +2,13 @@
   <section class="brand">
     <div class="container">
       <div class="content">
-        <div class="brand-content">
+        <a class="brand-content" routerLink="/">
           <img class="logo" src="img/logo.svg" alt="Logo">
-          <br>
           <h1 class="title">Package Browser</h1>
-          <h3 class="tagline">Explore the JavaScript packages for web development</h3>
-        </div>
+        </a>
 
         <div class="search-box">
-          <input id="search-field" autocomplete="off" required (focus)="loadSearchPage()">
+          <input id="search-field" autocomplete="off" required #searchBox (keyup)="search(searchBox.value)">
           <label for="search-field">Search...</label>
         </div>
       </div>
@@ -23,14 +21,16 @@
     <div class="container">
       <div [class.page]="(packages | async)?.length">
         <div *ngIf="((packages | async)?.length); else resultMsg">
-          <div class="section-title">Most Popular Packages</div>
           <card *ngFor="let package of packages | async" [package]="package" class="card"></card>
         </div>
       </div>
 
       <ng-template #resultMsg>
         <div class="no-results">
-          <span>Ooops!<br><br>There are no packages found!</span>
+          <span *ngIf="(searchBox.value.length === 0); else errorMsg">Type some query to search a package!</span>
+          <ng-template #errorMsg>
+            <span>Ooops!<br><br>There are no packages that matched your query!</span>
+          </ng-template>
         </div>
       </ng-template>
     </div>

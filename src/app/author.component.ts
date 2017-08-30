@@ -1,7 +1,7 @@
-import { Component, OnInit }        from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { Component, OnInit }                from '@angular/core';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
-import { Observable }               from 'rxjs/Observable';
+import { Observable }                       from 'rxjs/Observable';
 
 import 'rxjs/add/observable/of';
 
@@ -27,7 +27,12 @@ export class AuthorComponent implements OnInit {
   constructor(
     private packageService: PackageService,
     private authorService: AuthorService,
-    private route: ActivatedRoute) {}
+    private route: ActivatedRoute,
+    private router: Router) {}
+
+  loadSearchPage(): void {
+    this.router.navigate(['/search']);
+  }
 
   ngOnInit(): void {
     this.packages = this.route.paramMap
