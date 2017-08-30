@@ -10,6 +10,14 @@ export class Package {
   repoUrl: string;
   npmUrl: string;
   publishDate: string;
-  rating: number;
-  stars: string[];
+  prettyPublishDate: string;
+  lastModifiedTime?: string;
+  prettyLastModifiedTime?: string;
+  authorWebsite?: string;
+  downloadUrl?: string;
+  license?: string;
+  readme?: string;
+  dependencies?: string[];
+  rating?: number;
+  stars?: string[];
 }

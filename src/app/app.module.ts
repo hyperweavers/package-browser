@@ -8,6 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent }     from './app.component';
 import { HomeComponent }    from './home.component';
 import { CardComponent }    from './card.component';
+import { PackageComponent } from './package.component';
 import { AuthorComponent }  from './author.component';
 
 import { PackageService }   from './package.service';
@@ -23,6 +24,7 @@ import { PackageService }   from './package.service';
     AppComponent,
     HomeComponent,
     CardComponent,
+    PackageComponent,
     AuthorComponent
   ],
   providers: [ PackageService ],

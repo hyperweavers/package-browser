@@ -1,7 +1,7 @@
-import { Component, OnInit }  from '@angular/core';
+import { Component, OnInit }        from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 
-import { Observable }         from 'rxjs/Observable';
+import { Observable }               from 'rxjs/Observable';
 
 import 'rxjs/add/observable/of';
 

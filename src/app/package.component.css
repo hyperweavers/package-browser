@@ -1,0 +1,328 @@
+header {
+  width: 100%;
+  color: #fff;
+  text-align: center;
+}
+
+.container {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.brand {
+  background: #2c5499;
+  padding: 30px 0;
+}
+
+.brand img {
+  cursor: pointer;
+}
+
+h1 {
+  font-size: 3em;
+  font-weight: normal;
+  line-height: 60px;
+  cursor: pointer;
+  display: inline-block;
+}
+
+h3 {
+  font-size: 1.375em;
+  font-weight: normal;
+  color: #bfd7ff;
+  line-height: 30px;
+}
+
+.search-box {
+  position: relative;
+  width: 30%;
+  min-width: 300px;
+  margin: 15px auto;
+}
+
+#search-field {
+  width: 100%;
+  background: url(../img/icon-search-32px.svg) no-repeat 16px 16px, rgba(255,255,255,0.4);
+  border: none;
+  font-size: 1.5em;
+  color: rgba(62, 151, 230, 0.87);;
+  padding: 16px 20px;
+}
+
+#search-field:focus,
+#search-field:valid {
+  background: url(../img/icon-search-32px.svg) no-repeat 16px 16px, #fff;
+}
+
+.search-box label {
+  position: absolute;
+  top: 16px;
+  left: 54px;
+  font-size: 1.5em;
+  color: #fff;
+  cursor: text;
+}
+
+#search-field:focus + label,
+#search-field:valid + label {
+  display: none;
+}
+
+.brand a,
+.brand a:active,
+.brand a:visited {
+  text-transform: uppercase;
+  color: #fff;
+  font-size: 0.875em;
+}
+
+.brand a:hover {
+  opacity: 0.7;
+}
+
+.container .page {
+  width: 100%;
+  margin-top: 30px;
+}
+
+.no-results {
+  font-size: 1.5em;
+  width: 100%;
+  text-align: center;
+  padding: 50px 0;
+}
+
+.row {
+  clear: both;
+  padding: 0px;
+  margin: 0px;
+}
+
+.col {
+  display: block;
+  float: left;
+  margin-bottom: 30px;
+  padding-left: 30px;
+}
+
+.col:first-child {
+  padding-left: 0;
+}
+
+.col-3 {
+  width: 33%;
+}
+
+.col-2
+{
+  width: 70%;
+}
+
+.col-2:not(:first-child) {
+  width: 30%;
+  padding-left: 0;
+}
+
+.btn {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  min-width: 100px;
+  background: #2c5499;
+  font-size: 1em;
+  color: #fff;
+  text-align: center;
+  line-height: 24px;
+  padding: 10px;
+  border-radius: 3px;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+  transition: box-shadow 0.28s cubic-bezier(0.4,0,0.2,1);
+  cursor: pointer;
+  user-select: none;
+}
+
+.btn:hover {
+  box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.4);
+}
+
+.btn img {
+  vertical-align: middle;
+  margin-right: 5px;
+}
+
+.btn span {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.page-header {
+  background: linear-gradient(45deg, #2c5499, #3e97e6);
+  padding: 30px 0;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.pkg-toolbar-heading {
+  font-size: 1.5em;
+  color: #78909C;
+  margin-bottom: 20px;
+}
+
+.pkg-info-container .pkg-full-name {
+  font-size: 2.125em;
+  color: #fff;
+}
+
+.pkg-version-info {
+  font-size: 1.125em;
+  color: #bfd7ff;
+}
+
+.pkg-written-by {
+  font-size: 1em;
+  color: #bfd7ff;
+  margin: 10px;
+}
+
+a.pkg-author {
+  font-size: 1.25em;
+  color: #bfd7ff;
+}
+
+a.pkg-author:hover {
+  text-decoration: underline;
+}
+
+.pkg-star-rating {
+  margin-top: 20px;
+}
+
+.pkg-btn-container .btn {
+  width: 45%;
+  float:right;
+  margin-right: 5px;
+  margin-bottom: 5px;
+}
+
+.pkg-btn-container .btn:first-child {
+  float: left;
+  margin-left: 5px;
+  margin-right: 0;
+}
+
+.pkg-description,
+.pkg-details-card {
+  background: #fff;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+}
+
+.pkg-description {
+  margin: 20px;
+  margin-top: 0;
+  padding: 40px 20px;
+}
+
+.pkg-details-card {
+  padding: 20px;
+  margin: 5px;
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+.pkg-details-card:first-child {
+  margin-bottom: 30px;
+}
+
+.pkg-details-card div {
+  margin-bottom: 10px;
+}
+
+.pkg-git-download {
+  margin-top: 20px;
+}
+
+.pkg-details-card-header {
+  font-size: 1.125em;
+  font-weight: bold;
+  margin-bottom: 30px !important;
+}
+
+.pkg-npm-install {
+  background: #efefef;
+  font-size: 1em;
+  padding: 15px 20px;
+  word-spacing: 5px;
+}
+
+.pkg-activity-info img {
+  vertical-align: middle;
+  margin-right: 10px;
+}
+
+@media only screen and (max-width: 1200px)
+{
+  .container {
+    width: 90%;
+  }
+}
+
+@media only screen and (max-width: 1020px)
+{
+  .col-2, .col-2:not(:first-child) {
+    width: 100%;
+  }
+
+  .pkg-toolbar .col-2:first-child {
+    width: 50%;
+  }
+
+  .pkg-toolbar .col-2:last-child {
+    width: 50%;
+  }
+
+  .pkg-description {
+    margin: 5px;
+  }
+
+  .pkg-git-download {
+    display: block;
+  }
+
+  .pkg-details-card .btn {
+    width: 150px;
+    margin: 0 auto;
+  }
+}
+
+@media only screen and (max-width: 768px)
+{
+  .brand-content {
+    float: none;
+  }
+
+  .container {
+    width: 100%;
+  }
+
+  .pkg-toolbar .col-2:first-child {
+    width: 100%;
+    text-align: center;
+  }
+
+  .pkg-toolbar .col-2:last-child {
+    width: 100%;
+  }
+
+  .pkg-btn-container .btn {
+    width: 150px;
+    float: none !important;
+  }
+
+  .pkg-btn-container .btn:first-child {
+    margin-right: 20px;
+  }
+
+  .pkg-btn-container {
+    text-align: center;
+  }
+}

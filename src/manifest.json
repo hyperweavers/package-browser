@@ -1,27 +1,28 @@
 {
   "name": "Package Browser",
   "description": "An explorer/search engine for JavaScript packages for web development.",
+  "short_name": "Package Browser",
   "lang": "en",
   "icons": [{
-    "src": "img/touch-icons/icon-128x128.png",
+    "src": "img/touch-icons/icon-128x128.svg",
       "sizes": "128x128",
-      "type": "image/png"
+      "type": "image/svg+xml"
     }, {
-      "src": "img/touch-icons/icon-144x144.png",
+      "src": "img/touch-icons/icon-144x144.svg",
       "sizes": "144x144",
-      "type": "image/png"
+      "type": "image/svg+xml"
     }, {
-      "src": "img/touch-icons/icon-152x152.png",
+      "src": "img/touch-icons/icon-152x152.svg",
       "sizes": "152x152",
-      "type": "image/png"
+      "type": "image/svg+xml"
     }, {
-      "src": "img/touch-icons/icon-192x192.png",
+      "src": "img/touch-icons/icon-192x192.svg",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/svg+xml"
     }, {
-      "src": "img/touch-icons/icon-256x256.png",
+      "src": "img/touch-icons/icon-256x256.svg",
       "sizes": "256x256",
-      "type": "image/png"
+      "type": "image/svg+xml"
     }],
   "start_url": "/index.html",
   "display": "standalone",
