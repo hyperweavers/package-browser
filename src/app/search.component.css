@@ -128,41 +128,6 @@ h1 {
   width: 33%;
 }
 
-.publish-steps {
-  background: linear-gradient(45deg, #2c5499, #3e97e6);
-  text-align: center;
-  color: #fff;
-  padding-top: 30px;
-  padding-bottom: 10px;
-}
-
-.how-to {
-  font-size: 1.75em;
-  color: #bfd7ff;
-  margin-bottom: 30px;
-}
-
-.step-number {
-  width: 64px;
-  height: 64px;
-  float: left;
-  background: #fff;
-  border-radius: 50%;
-  font-size: 1.75em;
-  color: #2c5499;
-  line-height: 64px;
-  margin-right: 16px;
-}
-
-.step-content {
-  display: table-cell;
-  vertical-align: middle;
-  height: 64px;
-  font-size: 1.25em;
-  text-align: left;
-  margin-left: 24px;
-}
-
 @media only screen and (max-width: 1200px) {
   .container {
     width: 90%;
