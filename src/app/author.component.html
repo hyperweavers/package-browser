@@ -41,7 +41,10 @@
               <div class="page-header">
                 <div class="author-info">
                   <img class="author-avatar" width="150px" height="150px" src="img/icon-avatar.png" alt="">
-                  <div class="author-name">{{package.authorName}}</div>
+                  <div *ngIf="(package.authorName !== ''); else authorUsername" class="author-name">{{package.authorName}}</div>
+                  <ng-template #authorUsername>
+                    <div class="author-name">{{package.authorUsername}}</div>
+                  </ng-template>
                   <a class="author-email" href="mailto:{{package.authorEmail}}">{{package.authorEmail}}</a>
                 </div>
               </div>

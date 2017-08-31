@@ -2,8 +2,9 @@ export class Package {
   name: string;
   version: string;
   desc: string;
-  authorName: string;
+  authorUsername: string;
   authorEmail: string;
+  authorName: string;
   keywords: string[];
   homepage: string;
   repoType: string;
