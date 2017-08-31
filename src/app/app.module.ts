@@ -3,6 +3,8 @@ import { BrowserModule }    from '@angular/platform-browser';
 import { FormsModule }      from '@angular/forms';
 import { HttpModule }       from '@angular/http';
 
+import { MarkdownModule }   from 'angular2-markdown';
+
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent }     from './app.component';
@@ -19,6 +21,7 @@ import { PackageService }   from './package.service';
     BrowserModule,
     FormsModule,
     HttpModule,
+    MarkdownModule.forRoot(),
     AppRoutingModule
   ],
   declarations: [

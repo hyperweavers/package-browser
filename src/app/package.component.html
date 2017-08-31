@@ -65,7 +65,13 @@
           <div class="pkg-overview">
             <div class="row">
               <div class="col col-2">
-                <div class="pkg-description">{{package.desc}}</div>
+                <div class="pkg-description markdown-body" *ngIf="(package.readme && package.readme !== ''); else pkgDesc">
+                  <markdown [data]="package.readme"></markdown>
+                </div>
+
+                <ng-template #pkgDesc>
+                  <div class="pkg-description">{{package.desc}}</div>
+                </ng-template>
               </div>
 
               <div class="col col-2">
