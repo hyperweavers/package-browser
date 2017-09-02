@@ -19,9 +19,9 @@
 <main>
   <section class="page-view">
     <div class="container">
-      <div [class.page]="(packages)?.length">
-        <div class="section-header" *ngIf="((packages)?.length)">
-          <div class="section-title">Listing all <strong>{{totalPackages}}</strong> repositories</div>
+      <div [class.page]="packages?.length">
+        <div class="section-header" *ngIf="packages?.length">
+          <div class="section-title">Listing all <strong>{{totalPackages}}</strong> packages</div>
           <div class="sort-box">
             <label for="sort-field">Sort by</label>
             <select id="sort-field" value={{sortBy}} #sortField (change)="sortPackages(sortField.value)">
@@ -33,7 +33,7 @@
           </div>
         </div>
 
-        <div *ngIf="((packages)?.length); else resultMsg">
+        <div *ngIf="(packages?.length); else resultMsg">
           <div>
             <card *ngFor="let package of packages | paginate: { itemsPerPage: 18, currentPage: page, totalItems: totalPackages }" [package]="package" class="card"></card>
           </div>

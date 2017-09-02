@@ -20,8 +20,27 @@
   <section class="page-view">
     <div class="container">
       <div [class.page]="(packages | async)?.length">
+        <div class="section-header" *ngIf="((packages | async)?.length)">
+          <div class="section-title">Found <strong>{{totalPackages}}</strong> packages</div>
+          <div class="sort-box">
+            <label for="sort-field">Sort by</label>
+            <select id="sort-field" value={{sortBy}} #sortField (change)="sortPackages(sortField.value)">
+              <option value="top">Top Overall</option>
+              <option value="popularity">Popularity</option>
+              <option value="quality">Quality</option>
+              <option value="maintenance">Maintenance</option>
+            </select>
+          </div>
+        </div>
+
         <div *ngIf="((packages | async)?.length); else resultMsg">
-          <card *ngFor="let package of packages | async" [package]="package" class="card"></card>
+          <div>
+            <card *ngFor="let package of packages | async | paginate: { itemsPerPage: 18, currentPage: page, totalItems: totalPackages }" [package]="package" class="card"></card>
+          </div>
+
+          <div class="pagination-container">
+            <pagination-controls maxSize="10" (pageChange)="loadPage($event)"></pagination-controls>
+          </div>
         </div>
       </div>
 

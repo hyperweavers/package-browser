@@ -78,6 +78,43 @@ h1 {
   margin-top: 30px;
 }
 
+.section-header
+{
+  font-size: 1.5em;
+  color: #78909C;
+  margin-bottom: 20px;
+}
+
+.section-title
+{
+  float: left;
+}
+
+.sort-box
+{
+  float: right;
+}
+
+select
+{
+  background: none;
+  border: none;
+  font-family: inherit;
+  font-size: inherit;
+  font-style: italic;
+  padding: 5px;
+  background: #fff;
+  color: rgba(0, 0, 0, 0.5);
+  border: 2px solid rgba(0, 0, 0, 0.4);
+}
+
+select::-ms-expand
+{
+  background: none;
+  border: none;
+  color: inherit;
+}
+
 .card {
   position: relative;
   float: left;
@@ -98,6 +135,11 @@ h1 {
 
 .card:hover {
   box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.4);
+}
+
+.pagination-container {
+  text-align: center;
+  margin: 20px 0;
 }
 
 .no-results {
@@ -153,6 +195,15 @@ h1 {
 @media only screen and (max-width: 768px) {
   .container {
     width: 100%;
+  }
+
+  .section-header * {
+    float: none !important;
+    text-align: center;
+  }
+
+  .section-title {
+    margin-bottom: 20px;
   }
 
   .card {

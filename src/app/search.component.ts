@@ -9,7 +9,6 @@ import 'rxjs/add/observable/of';
 
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/distinctUntilChanged';
 
 import { Package }        from './package';
 import { PackageService } from './package.service';
@@ -23,22 +22,45 @@ import { PackageService } from './package.service';
 export class SearchComponent implements OnInit {
   @ViewChild('searchBox') searchBox:ElementRef;
 
-  packages: Observable<Package[]>;
   private keywords = new Subject<string>();
+
+  packages: Observable<Package[]>;
+  totalPackages: number;
+  page: number = 1;
+  sortBy: string = 'top';
 
   constructor(
     private packageService: PackageService,
-    private router: Router) {}
+    private router: Router) {
+    packageService.count$.subscribe(count => this.totalPackages = count);
+  }
 
   search(keyword: string): void {
+    this.page = 1;
+    this.sortBy = 'top';
+
     this.keywords.next(keyword);
+  }
+
+  sortPackages(sortBy: string): void {
+    this.page = 1;
+    this.sortBy = sortBy;
+
+    this.keywords.next(this.searchBox.nativeElement.value);
+  }
+
+  loadPage(pageNumber: number): void {
+    this.page = pageNumber;
+
+    this.keywords.next(this.searchBox.nativeElement.value);
+
+    window.scrollTo(0, 0);
   }
 
   ngOnInit(): void {
     this.packages = this.keywords
-      .distinctUntilChanged()
       .switchMap(keyword => keyword
-        ? this.packageService.searchByKeyword(keyword)
+        ? this.packageService.searchByKeyword(keyword, this.sortBy, this.page)
         : Observable.of<Package[]>([]))
       .catch(error => {
         console.log(error);

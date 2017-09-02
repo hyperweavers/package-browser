@@ -33,6 +33,8 @@ export class PackageListComponent implements OnInit {
   }
 
   sortPackages(sortBy: string): void {
+    this.page = 1;
+
     this.router.navigate(['/list/' + sortBy]);
   }
 
