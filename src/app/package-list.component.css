@@ -78,6 +78,40 @@ h1 {
   margin-top: 30px;
 }
 
+.section-header
+{
+  font-size: 1.5em;
+  color: #78909C;
+  margin-bottom: 20px;
+}
+
+.section-title
+{
+  float: left;
+}
+
+.sort-box
+{
+  float: right;
+}
+
+select
+{
+  background: none;
+  border: none;
+  font-family: inherit;
+  font-size: inherit;
+  font-style: italic;
+  color: inherit;
+}
+
+select::-ms-expand
+{
+  background: none;
+  border: none;
+  color: inherit;
+}
+
 .card {
   position: relative;
   float: left;
@@ -153,6 +187,15 @@ h1 {
 @media only screen and (max-width: 768px) {
   .container {
     width: 100%;
+  }
+
+  .section-header * {
+    float: none !important;
+    text-align: center;
+  }
+
+  .section-title {
+    margin-bottom: 20px;
   }
 
   .card {

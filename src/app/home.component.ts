@@ -25,7 +25,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.packages = this.packageService.getPopularPackages();
+    this.packages = this.packageService.getPackages('popularity');
 
     this.packageService.getTotalPackagesCount()
       .then(pkgCount => this.totalPackages = pkgCount);

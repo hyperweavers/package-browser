@@ -9,7 +9,7 @@ import { AuthorComponent }      from './author.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'list', component: PackageListComponent },
+  { path: 'list/:sortBy', component: PackageListComponent },
   { path: 'search', component: SearchComponent },
   { path: 'package/:name', component: PackageComponent },
   { path: 'author/:name', component: AuthorComponent }

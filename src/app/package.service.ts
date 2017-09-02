@@ -38,15 +38,30 @@ export class PackageService {
             .catch(this.handleError);
   }
 
-  getAllPackages(): Observable<Package[]> {
-    return this.http
-            .get(`${this.baseUrl}/-/v1/search?text=boost-exact:true&size=18`)
-            .map(this.mapPackages.bind(this));
-  }
+  getPackages(sortBy: string): Observable<Package[]> {
+    let url = '';
 
-  getPopularPackages(): Observable<Package[]> {
+    switch (sortBy) {
+      case 'popularity':
+        url = `${this.baseUrl}/-/v1/search?popularity=1.0&quality=0.0&maintenance=0.0&text=boost-exact:true`;
+        break;
+
+      case 'quality':
+        url = `${this.baseUrl}/-/v1/search?popularity=0.0&quality=1.0&maintenance=0.0&text=boost-exact:true`;
+        break;
+
+      case 'maintenance':
+        url = `${this.baseUrl}/-/v1/search?popularity=0.0&quality=0.0&maintenance=1.0&text=boost-exact:true`;
+        break;
+
+      case 'top':
+      default:
+        url = `${this.baseUrl}/-/v1/search?popularity=1.0&quality=1.0&maintenance=1.0&text=boost-exact:true`;
+        break;
+    }
+
     return this.http
-            .get(`${this.baseUrl}/-/v1/search?quality=0.0&maintenance=0.0&popularity=1.0&text=boost-exact:true&size=18`)
+            .get(`${url}&size=18`)
             .map(this.mapPackages.bind(this));
   }
 
