@@ -14,6 +14,7 @@ import { PackageService } from './package.service';
 
 export class HomeComponent implements OnInit {
   packages: Observable<Package[]>;
+  totalPackages: number;
 
   constructor(
     private packageService: PackageService,
@@ -25,5 +26,8 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.packages = this.packageService.getPopularPackages();
+
+    this.packageService.getTotalPackagesCount()
+      .then(pkgCount => this.totalPackages = pkgCount);
   }
 }
