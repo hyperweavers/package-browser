@@ -27,7 +27,8 @@
     "systemjs": "0.19.39",
     "zone.js": "^0.8.4",
     "angular2-markdown": "^1.6.0",
-    "github-markdown-css": "^2.8.0"
+    "github-markdown-css": "^2.8.0",
+    "ngx-pagination": "^3.0.1"
   },
   "devDependencies": {
     "concurrently": "^3.0.0",

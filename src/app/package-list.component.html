@@ -34,7 +34,13 @@
         </div>
 
         <div *ngIf="((packages)?.length); else resultMsg">
-          <card *ngFor="let package of packages" [package]="package" class="card"></card>
+          <div>
+            <card *ngFor="let package of packages | paginate: { itemsPerPage: 18, currentPage: page, totalItems: totalPackages }" [package]="package" class="card"></card>
+          </div>
+
+          <div class="pagination-container">
+            <pagination-controls maxSize="10" (pageChange)="loadPage($event)"></pagination-controls>
+          </div>
         </div>
       </div>
 

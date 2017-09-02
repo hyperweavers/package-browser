@@ -4,6 +4,7 @@ import { FormsModule }          from '@angular/forms';
 import { HttpModule }           from '@angular/http';
 
 import { MarkdownModule }       from 'angular2-markdown';
+import { NgxPaginationModule }  from 'ngx-pagination';
 
 import { AppRoutingModule }     from './app-routing.module';
 
@@ -23,6 +24,7 @@ import { PackageService }       from './package.service';
     FormsModule,
     HttpModule,
     MarkdownModule.forRoot(),
+    NgxPaginationModule,
     AppRoutingModule
   ],
   declarations: [

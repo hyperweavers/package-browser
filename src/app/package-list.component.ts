@@ -18,12 +18,15 @@ import { PackageService } from './package.service';
 export class PackageListComponent implements OnInit {
   packages: Package[] = [];
   totalPackages: number;
+  page: number = 1;
   sortBy: string;
 
   constructor(
     private packageService: PackageService,
     private route: ActivatedRoute,
-    private router: Router) {}
+    private router: Router) {
+    packageService.count$.subscribe(count => this.totalPackages = count);
+  }
 
   loadSearchPage(): void {
     this.router.navigate(['/search']);
@@ -33,18 +36,23 @@ export class PackageListComponent implements OnInit {
     this.router.navigate(['/list/' + sortBy]);
   }
 
+  loadPage(pageNumber: number): void {
+    this.page = pageNumber;
+
+    this.packages = [];
+
+    this.packageService.getPackages(this.sortBy, this.page).subscribe(packages => this.packages = packages);
+  }
+
   ngOnInit(): void {
     this.route.paramMap
       .switchMap((params: ParamMap) => this.loadPackages(params.get('sortBy')))
       .subscribe(packages => {
         this.packages = packages;
       });
-
-    this.packageService.getTotalPackagesCount()
-      .then(pkgCount => this.totalPackages = pkgCount);
   }
 
-  private loadPackages(sortBy : string): Observable<Package[]> {
+  private loadPackages(sortBy: string): Observable<Package[]> {
     this.packages = [];
 
     this.sortBy = sortBy;

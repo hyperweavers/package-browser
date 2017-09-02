@@ -2,6 +2,7 @@ import { Injectable }     from '@angular/core';
 import { Http, Response } from '@angular/http';
 
 import { Observable }     from 'rxjs/Observable';
+import { Subject }        from 'rxjs/Subject';
 
 import 'rxjs/add/observable/of';
 
@@ -15,8 +16,16 @@ export class PackageService {
   private baseUrl = 'https://registry.npmjs.org';
   private corsAnywhereUrl = 'https://cors-anywhere.herokuapp.com/';
   private npmPkgUrl = 'https://www.npmjs.com/package/';
+  private packagesPerPage = 18;
+  private queryResultCount: Subject<number>;
 
-  constructor(private http: Http) {}
+  count$: Observable<number>;
+
+  constructor(private http: Http) {
+    this.queryResultCount = new Subject<number>();
+    this.queryResultCount.next(0);
+    this.count$ = this.queryResultCount.asObservable();
+  }
 
   searchByKeyword(keyword:string): Observable<Package[]> {
     return this.http
@@ -38,8 +47,9 @@ export class PackageService {
             .catch(this.handleError);
   }
 
-  getPackages(sortBy: string): Observable<Package[]> {
+  getPackages(sortBy: string, page?: number): Observable<Package[]> {
     let url = '';
+    let from = 0;
 
     switch (sortBy) {
       case 'popularity':
@@ -60,69 +70,69 @@ export class PackageService {
         break;
     }
 
+    if (page) {
+      from = (page - 1) * this.packagesPerPage;
+    }
+
     return this.http
-            .get(`${url}&size=18`)
+            .get(`${url}&from=${from}&size=${this.packagesPerPage}`)
             .map(this.mapPackages.bind(this));
   }
 
-  getTotalPackagesCount(): Promise<number> {
-    return this.http
-            .get(`${this.corsAnywhereUrl}${this.baseUrl}/`)
-            .toPromise()
-            .then(this.countPackages.bind(this))
-            .catch(this.handleError);
-  }
-
-  private countPackages(response: Response): number {
-    let res = response.json();
-
-    return (res.doc_count - res.doc_del_count);
-  }
-
   private mapPackage(response:Response, packageName:string): Package {
+    this.queryResultCount.next(1);
+
     let res = response.json();
 
-    let dependencyList = [];
+    let pkg = null;
 
-    for (let dependency in res.versions[res['dist-tags'].latest].dependencies) {
-      dependencyList.push(dependency);
+    if (res.error === undefined && res.reason === undefined) {
+      let dependencyList = [];
+
+      for (let dependency in res.versions[res['dist-tags'].latest].dependencies) {
+        dependencyList.push(dependency);
+      }
+
+      pkg = <Package>({
+        name: res.name,
+        version: res['dist-tags'].latest,
+        desc: res.description,
+        authorUsername: res.versions[res['dist-tags'].latest]._npmUser.name,
+        authorEmail: res.versions[res['dist-tags'].latest]._npmUser.email,
+        authorName: (res.author && res.author.name) ? res.author.name : '',
+        keywords: res.keywords,
+        homepage: res.homepage ? res.homepage : '',
+        repoType: res.repository.type ? res.repository.type : '',
+        repoUrl: res.repository.url ? this.sanitizeUrl(res.repository.url) : '',
+        npmUrl: this.npmPkgUrl + res.name,
+        publishDate: res.time.created,
+        prettyPublishDate: this.prettyDate(res.time.created),
+        lastModifiedTime: res.time.modified,
+        prettyLastModifiedTime: this.prettyDate(res.time.modified),
+        authorWebsite: (res.author && res.author.url) ? res.author.url : '',
+        downloadUrl: res.versions[res['dist-tags'].latest].dist.tarball,
+        license: res.license ? res.license : '',
+        readme: res.readme ? res.readme : '',
+        dependencies: dependencyList
+      });
     }
-
-    let pkg = <Package>({
-      name: res.name,
-      version: res['dist-tags'].latest,
-      desc: res.description,
-      authorUsername: res.versions[res['dist-tags'].latest]._npmUser.name,
-      authorEmail: res.versions[res['dist-tags'].latest]._npmUser.email,
-      authorName: (res.author && res.author.name) ? res.author.name : '',
-      keywords: res.keywords,
-      homepage: res.homepage ? res.homepage : '',
-      repoType: res.repository.type ? res.repository.type : '',
-      repoUrl: res.repository.url ? this.sanitizeUrl(res.repository.url) : '',
-      npmUrl: this.npmPkgUrl + res.name,
-      publishDate: res.time.created,
-      prettyPublishDate: this.prettyDate(res.time.created),
-      lastModifiedTime: res.time.modified,
-      prettyLastModifiedTime: this.prettyDate(res.time.modified),
-      authorWebsite: (res.author && res.author.url) ? res.author.url : '',
-      downloadUrl: res.versions[res['dist-tags'].latest].dist.tarball,
-      license: res.license ? res.license : '',
-      readme: res.readme ? res.readme : '',
-      dependencies: dependencyList
-    });
 
     return pkg;
   }
 
   private mapPackages(response:Response): Observable<Package[]> {
-    let responseObjects = response.json().objects;
+    let res = response.json();
 
-    if (responseObjects.length > 0) {
+    if (res.objects.length > 0) {
       console.log('Results found!');
 
-      return responseObjects.map(this.toPackage.bind(this));
+      this.queryResultCount.next(res.total);
+
+      return res.objects.map(this.toPackage.bind(this));
     } else {
       console.info('No results found for the given keyword!');
+
+      this.queryResultCount.next(0);
 
       return Observable.of<Package[]>([]);
     }

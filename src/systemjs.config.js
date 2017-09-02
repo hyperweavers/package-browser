@@ -24,6 +24,7 @@
       '@angular/router': 'npm:@angular/router/bundles/router.umd.js',
       '@angular/router/upgrade': 'npm:@angular/router/bundles/router-upgrade.umd.js',
       'angular2-markdown': 'npm:angular2-markdown/bundles/angular2-markdown.umd.js',
+      'ngx-pagination': 'npm:ngx-pagination/dist/ngx-pagination.umd.js',
 
       // other libraries
       'rxjs': 'npm:rxjs'

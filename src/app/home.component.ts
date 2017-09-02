@@ -18,7 +18,9 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private packageService: PackageService,
-    private router: Router) {}
+    private router: Router) {
+    packageService.count$.subscribe(count => this.totalPackages = count);
+  }
 
   loadSearchPage(): void {
     this.router.navigate(['/search']);
@@ -26,8 +28,5 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.packages = this.packageService.getPackages('popularity');
-
-    this.packageService.getTotalPackagesCount()
-      .then(pkgCount => this.totalPackages = pkgCount);
   }
 }
