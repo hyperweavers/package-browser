@@ -1,0 +1,161 @@
+header {
+  width: 100%;
+  color: #fff;
+  text-align: center;
+}
+
+.container {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.brand {
+  background: #2c5499;
+}
+
+.brand-content,
+.brand-content:active,
+.brand-content:visited,
+.brand-content:hover
+{
+  float: left;
+  height: 60px;
+  margin: 15px auto;
+  color: #fff;
+}
+
+.brand img {
+  transform: scale(0.8);
+  cursor: pointer;
+}
+
+h1 {
+  font-size: 2em;
+  font-weight: normal;
+  line-height: 60px;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.search-box {
+  position: relative;
+  float: right;
+  width: 30%;
+  min-width: 300px;
+  margin: 15px auto;
+}
+
+#search-field {
+  width: 100%;
+  background: url(../img/icon-search-32px.svg) no-repeat 16px 16px, rgba(255,255,255,0.4);
+  border: none;
+  font-size: 1.5em;
+  color: rgba(62, 151, 230, 0.87);;
+  padding: 16px 20px;
+}
+
+#search-field:focus,
+#search-field:valid {
+  background: url(../img/icon-search-32px.svg) no-repeat 16px 16px, #fff;
+}
+
+.search-box label {
+  position: absolute;
+  top: 16px;
+  left: 54px;
+  font-size: 1.5em;
+  color: #fff;
+  cursor: text;
+}
+
+#search-field:focus + label,
+#search-field:valid + label {
+  display: none;
+}
+
+.container .page {
+  width: 100%;
+  margin-top: 30px;
+}
+
+.card {
+  position: relative;
+  float: left;
+  height: 200px;
+  width: calc(33% - 30px);
+  background: #fff;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+  padding: 24px;
+  margin: 15px;
+  margin-bottom: 28px;
+  cursor: pointer;
+}
+
+.card:last-child
+{
+  margin-bottom: 45px;
+}
+
+.card:hover {
+  box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.4);
+}
+
+.no-results {
+  font-size: 1.5em;
+  width: 100%;
+  text-align: center;
+  padding: 50px 0;
+}
+
+.row {
+  clear: both;
+  padding: 0px;
+  margin: 0px;
+}
+
+.col {
+  display: block;
+  float: left;
+  margin-bottom: 30px;
+  padding-left: 30px;
+}
+
+.col:first-child {
+  padding-left: 0;
+}
+
+.col-3 {
+  width: 33%;
+}
+
+@media only screen and (max-width: 1200px) {
+  .container {
+    width: 90%;
+  }
+
+  .card {
+    width: calc(50% - 30px);
+  }
+}
+
+@media only screen and (max-width: 1020px) {
+  .col,
+  .col:first-child {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .col-3 {
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .container {
+    width: 100%;
+  }
+
+  .card {
+    width: calc(100% - 30px);
+  }
+}

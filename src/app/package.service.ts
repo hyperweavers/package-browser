@@ -38,6 +38,12 @@ export class PackageService {
             .catch(this.handleError);
   }
 
+  getAllPackages(): Observable<Package[]> {
+    return this.http
+            .get(`${this.baseUrl}/-/v1/search?text=boost-exact:true&size=18`)
+            .map(this.mapPackages.bind(this));
+  }
+
   getPopularPackages(): Observable<Package[]> {
     return this.http
             .get(`${this.baseUrl}/-/v1/search?quality=0.0&maintenance=0.0&popularity=1.0&text=boost-exact:true&size=18`)

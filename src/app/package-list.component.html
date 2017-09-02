@@ -1,0 +1,35 @@
+<header class="header">
+  <section class="brand">
+    <div class="container">
+      <div class="content">
+        <a class="brand-content" routerLink="/">
+          <img class="logo" src="img/logo.svg" alt="Logo">
+          <h1 class="title">Package Browser</h1>
+        </a>
+
+        <div class="search-box">
+          <input id="search-field" autocomplete="off" required (focus)="loadSearchPage()">
+          <label for="search-field">Search...</label>
+        </div>
+      </div>
+    </div>
+  </section>
+</header>
+
+<main>
+  <section class="page-view">
+    <div class="container">
+      <div [class.page]="(packages | async)?.length">
+        <div *ngIf="((packages | async)?.length); else resultMsg">
+          <card *ngFor="let package of packages | async" [package]="package" class="card"></card>
+        </div>
+      </div>
+
+      <ng-template #resultMsg>
+        <div class="no-results">
+          <span>Ooops!<br><br>There are no packages found!</span>
+        </div>
+      </ng-template>
+    </div>
+  </section>
+</main>
