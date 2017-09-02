@@ -21,7 +21,7 @@
     <div class="container">
       <div [class.page]="(packages)?.length">
         <div class="section-header" *ngIf="((packages)?.length)">
-          <div class="section-title">Listing all <span>{{totalPackages}}</span> repositories</div>
+          <div class="section-title">Listing all <strong>{{totalPackages}}</strong> repositories</div>
           <div class="sort-box">
             <label for="sort-field">Sort by</label>
             <select id="sort-field" value={{sortBy}} #sortField (change)="sortPackages(sortField.value)">
