@@ -59,9 +59,35 @@ export class PackageService {
             .map(this.mapPackages.bind(this));
   }
 
-  searchByAuthor(author:string): Observable<Package[]> {
+  searchByAuthor(author:string, sortBy?: string, page?: number): Observable<Package[]> {
+    let url = '';
+    let from = 0;
+
+    switch (sortBy) {
+      case 'popularity':
+        url = `${this.baseUrl}/-/v1/search?popularity=1.0&quality=0.0&maintenance=0.0`;
+        break;
+
+      case 'quality':
+        url = `${this.baseUrl}/-/v1/search?popularity=0.0&quality=1.0&maintenance=0.0`;
+        break;
+
+      case 'maintenance':
+        url = `${this.baseUrl}/-/v1/search?popularity=0.0&quality=0.0&maintenance=1.0`;
+        break;
+
+      case 'top':
+      default:
+        url = `${this.baseUrl}/-/v1/search?popularity=1.0&quality=1.0&maintenance=1.0`;
+        break;
+    }
+
+    if (page) {
+      from = (page - 1) * this.packagesPerPage;
+    }
+
     return this.http
-            .get(`${this.baseUrl}/-/v1/search?text=author:${author}`)
+            .get(`${url}&text=author:${author}&from=${from}&size=${this.packagesPerPage}`)
             .map(this.mapPackages.bind(this));
   }
 

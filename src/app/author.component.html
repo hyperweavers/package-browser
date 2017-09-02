@@ -18,7 +18,7 @@
 
 <main>
   <section class="page-view">
-    <div [class.page]="(packages | async)?.length">
+    <div [class.page]="packages?.length">
       <div *ngIf="author; else basicAuthorInfo">
         <div class="page-header">
           <div class="author-info">
@@ -35,8 +35,8 @@
       </div>
 
       <ng-template #basicAuthorInfo>
-        <div *ngIf="(packages | async)?.length">
-          <div *ngFor="let package of packages | async; let last=last">
+        <div *ngIf="packages?.length">
+          <div *ngFor="let package of packages; let last=last">
             <div *ngIf="last">
               <div class="page-header">
                 <div class="author-info">
@@ -54,8 +54,27 @@
       </ng-template>
 
       <div class="container">
-        <div *ngIf="((packages | async)?.length); else errorMsg">
-          <card *ngFor="let package of packages | async" [package]="package" class="card"></card>
+        <div *ngIf="(packages?.length); else errorMsg">
+          <div class="section-header" *ngIf="packages?.length">
+            <div class="section-title">Listing <strong>{{totalPackages}}</strong> packages by this author</div>
+            <div class="sort-box">
+              <label for="sort-field">Sort by</label>
+              <select id="sort-field" value={{sortBy}} #sortField (change)="sortPackages(sortField.value)">
+                <option value="top">Top Overall</option>
+                <option value="popularity">Popularity</option>
+                <option value="quality">Quality</option>
+                <option value="maintenance">Maintenance</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <card *ngFor="let package of packages | paginate: { itemsPerPage: 18, currentPage: page, totalItems: totalPackages }" [package]="package" class="card"></card>
+          </div>
+
+          <div class="pagination-container">
+            <pagination-controls maxSize="10" (pageChange)="loadPage($event)"></pagination-controls>
+          </div>
         </div>
 
         <ng-template #errorMsg>
