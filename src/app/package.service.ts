@@ -7,6 +7,7 @@ import { Subject }        from 'rxjs/Subject';
 import 'rxjs/add/observable/of';
 
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/share';
 import 'rxjs/add/operator/toPromise';
 
 import { Package }        from './package';
@@ -128,6 +129,7 @@ export class PackageService {
 
     return this.http
             .get(`${url}&from=${from}&size=${this.packagesPerPage}`)
+            .share()
             .map(this.mapPackages.bind(this));
   }
 
