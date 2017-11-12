@@ -5,6 +5,7 @@ import { Observable }         from 'rxjs/Observable';
 
 import { Package }        from './package';
 import { PackageService } from './package.service';
+import { LoaderService }  from './loader.service';
 
 @Component({
   selector: 'home-page',
@@ -18,8 +19,11 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private packageService: PackageService,
+    private loaderService: LoaderService,
     private router: Router) {
-    packageService.count$.subscribe(count => this.totalPackages = count);
+      loaderService.show();
+
+      packageService.count$.subscribe(count => this.totalPackages = count);
   }
 
   loadSearchPage(): void {
@@ -28,5 +32,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.packages = this.packageService.getPackages('popularity');
+
+    this.packages.subscribe(packages => this.loaderService.hide());
   }
 }

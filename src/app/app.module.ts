@@ -17,6 +17,7 @@ import { PackageComponent }     from './package.component';
 import { AuthorComponent }      from './author.component';
 
 import { PackageService }       from './package.service';
+import { LoaderService }        from './loader.service';
 
 @NgModule({
   imports: [
@@ -36,7 +37,10 @@ import { PackageService }       from './package.service';
     PackageComponent,
     AuthorComponent
   ],
-  providers: [ PackageService ],
+  providers: [
+    PackageService,
+    LoaderService
+  ],
   bootstrap: [ AppComponent ]
 })
 

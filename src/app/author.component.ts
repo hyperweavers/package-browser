@@ -9,6 +9,7 @@ import { Package }        from './package';
 import { Author }         from './author';
 import { PackageService } from './package.service';
 import { AuthorService }  from './author.service';
+import { LoaderService }  from './loader.service';
 
 @Component({
   selector: 'author-page',
@@ -28,9 +29,12 @@ export class AuthorComponent implements OnInit {
   constructor(
     private packageService: PackageService,
     private authorService: AuthorService,
+    private loaderService: LoaderService,
     private route: ActivatedRoute,
     private router: Router) {
-    packageService.count$.subscribe(count => this.totalPackages = count);
+      loaderService.show();
+
+      packageService.count$.subscribe(count => this.totalPackages = count);
   }
 
   loadSearchPage(): void {
@@ -38,32 +42,61 @@ export class AuthorComponent implements OnInit {
   }
 
   sortPackages(sortBy: string): void {
+    this.loaderService.show();
+
     this.page = 1;
     this.sortBy = sortBy;
 
     this.packages = [];
 
-    this.packageService.searchByAuthor(this.authorUsername, this.sortBy, this.page).subscribe(packages => this.packages = packages);
+    this.packageService.searchByAuthor(this.authorUsername, this.sortBy, this.page).subscribe(packages => {
+      this.packages = packages;
+
+      this.loaderService.hide();
+    });
   }
 
   loadPage(pageNumber: number): void {
+    this.loaderService.show();
+
     this.page = pageNumber;
 
     this.packages = [];
 
-    this.packageService.searchByAuthor(this.authorUsername, this.sortBy, this.page).subscribe(packages => this.packages = packages);
+    this.packageService.searchByAuthor(this.authorUsername, this.sortBy, this.page).subscribe(packages => {
+      this.packages = packages;
+
+      this.loaderService.hide();
+    });
   }
 
   ngOnInit(): void {
+    let isPackagesLoaded = false;
+    let isAuthorDetailsLoaded = false;
+
     this.route.paramMap
       .switchMap((params: ParamMap) => this.loadPackages(params.get('name')))
       .subscribe(packages => {
         this.packages = packages;
+
+        isPackagesLoaded = true;
+
+        if (isPackagesLoaded === true && isAuthorDetailsLoaded === true) {
+          this.loaderService.hide();
+        }
       });
 
     this.route.paramMap
       .switchMap((params: ParamMap) => this.authorService.getAuthor(params.get('name')))
-      .subscribe(author => this.author = author);
+      .subscribe(author => {
+        this.author = author;
+
+        isAuthorDetailsLoaded = true;
+
+        if (isPackagesLoaded === true && isAuthorDetailsLoaded === true) {
+          this.loaderService.hide();
+        }
+      });
   }
 
   private loadPackages(authorUsername: string): Observable<Package[]> {

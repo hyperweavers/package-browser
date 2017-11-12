@@ -7,6 +7,7 @@ import 'rxjs/add/operator/switchMap';
 
 import { Package }        from './package';
 import { PackageService } from './package.service';
+import { LoaderService }  from './loader.service';
 
 @Component({
   selector: 'package-page',
@@ -19,8 +20,11 @@ export class PackageComponent implements OnInit {
 
   constructor(
     private packageService: PackageService,
+    private loaderService: LoaderService,
     private route: ActivatedRoute,
-    private router: Router) {}
+    private router: Router) {
+      loaderService.show();
+    }
 
   loadSearchPage(): void {
     this.router.navigate(['/search']);
@@ -29,6 +33,10 @@ export class PackageComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap
       .switchMap((params: ParamMap) => this.packageService.getPackage(params.get('name')))
-      .subscribe(pkg => this.package = pkg);
+      .subscribe(pkg => {
+        this.package = pkg;
+
+        this.loaderService.hide();
+      });
   }
 }

@@ -46,7 +46,7 @@
 
       <ng-template #resultMsg>
         <div class="no-results">
-          <span *ngIf="(searchBox.value.length === 0); else errorMsg">Type some query to search a package!</span>
+          <span *ngIf="(searchBox.value.length === 0); else errorMsg">Type some query to search packages!</span>
           <ng-template #errorMsg>
             <span>Ooops!<br><br>There are no packages that matched your query!</span>
           </ng-template>

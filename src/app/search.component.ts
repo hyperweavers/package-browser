@@ -12,6 +12,7 @@ import 'rxjs/add/operator/switchMap';
 
 import { Package }        from './package';
 import { PackageService } from './package.service';
+import { LoaderService }  from './loader.service';
 
 @Component({
   selector: 'search-page',
@@ -31,8 +32,9 @@ export class SearchComponent implements OnInit {
 
   constructor(
     private packageService: PackageService,
+    private loaderService: LoaderService,
     private router: Router) {
-    packageService.count$.subscribe(count => this.totalPackages = count);
+      packageService.count$.subscribe(count => this.totalPackages = count);
   }
 
   search(keyword: string): void {
@@ -43,6 +45,8 @@ export class SearchComponent implements OnInit {
   }
 
   sortPackages(sortBy: string): void {
+    this.loaderService.show();
+
     this.page = 1;
     this.sortBy = sortBy;
 
@@ -50,6 +54,8 @@ export class SearchComponent implements OnInit {
   }
 
   loadPage(pageNumber: number): void {
+    this.loaderService.show();
+
     this.page = pageNumber;
 
     this.keywords.next(this.searchBox.nativeElement.value);
@@ -67,6 +73,8 @@ export class SearchComponent implements OnInit {
 
         return Observable.of<Package[]>([]);
       });
+
+      this.packages.subscribe(packages => this.loaderService.hide());
   }
 
   ngAfterViewInit(): void {

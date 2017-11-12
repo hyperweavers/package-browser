@@ -8,6 +8,7 @@ import 'rxjs/add/operator/switchMap';
 
 import { Package }        from './package';
 import { PackageService } from './package.service';
+import { LoaderService }  from './loader.service';
 
 @Component({
   selector: 'package-list',
@@ -23,9 +24,12 @@ export class PackageListComponent implements OnInit {
 
   constructor(
     private packageService: PackageService,
+    private loaderService: LoaderService,
     private route: ActivatedRoute,
     private router: Router) {
-    packageService.count$.subscribe(count => this.totalPackages = count);
+      loaderService.show();
+
+      packageService.count$.subscribe(count => this.totalPackages = count);
   }
 
   loadSearchPage(): void {
@@ -33,17 +37,25 @@ export class PackageListComponent implements OnInit {
   }
 
   sortPackages(sortBy: string): void {
+    this.loaderService.show();
+
     this.page = 1;
 
     this.router.navigate(['/list/' + sortBy]);
   }
 
   loadPage(pageNumber: number): void {
+    this.loaderService.show();
+
     this.page = pageNumber;
 
     this.packages = [];
 
-    this.packageService.getPackages(this.sortBy, this.page).subscribe(packages => this.packages = packages);
+    this.packageService.getPackages(this.sortBy, this.page).subscribe(packages => {
+      this.packages = packages;
+
+      this.loaderService.hide();
+    });
   }
 
   ngOnInit(): void {
@@ -51,11 +63,13 @@ export class PackageListComponent implements OnInit {
       .switchMap((params: ParamMap) => this.loadPackages(params.get('sortBy')))
       .subscribe(packages => {
         this.packages = packages;
+
+        this.loaderService.hide();
       });
   }
 
   private loadPackages(sortBy: string): Observable<Package[]> {
-    this.packages = [];
+   this.packages = [];
 
     this.sortBy = sortBy;
 
