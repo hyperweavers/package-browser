@@ -141,6 +141,8 @@ export class PackageService {
     let pkg = null;
 
     if (res.error === undefined && res.reason === undefined) {
+      let repoUrl = res.repository.url ? this.sanitizeUrl(res.repository.url) : '';
+
       let dependencyList = [];
 
       for (let dependency in res.versions[res['dist-tags'].latest].dependencies) {
@@ -157,7 +159,7 @@ export class PackageService {
         keywords: res.keywords,
         homepage: res.homepage ? res.homepage : '',
         repoType: res.repository.type ? res.repository.type : '',
-        repoUrl: res.repository.url ? this.sanitizeUrl(res.repository.url) : '',
+        repoUrl: repoUrl,
         npmUrl: this.npmPkgUrl + res.name,
         publishDate: res.time.created,
         prettyPublishDate: this.prettyDate(res.time.created),
@@ -166,7 +168,7 @@ export class PackageService {
         authorWebsite: (res.author && res.author.url) ? res.author.url : '',
         downloadUrl: res.versions[res['dist-tags'].latest].dist.tarball,
         license: res.license ? res.license : '',
-        readme: res.readme ? res.readme : '',
+        readme: res.readme ? this.normalizeReadme(res.readme, repoUrl) : '',
         dependencies: dependencyList
       });
     }
@@ -240,6 +242,10 @@ export class PackageService {
   }
 
   private sanitizeUrl(url:string): string {
+    if (url.slice(url.length - '.git'.length, url.length) === '.git') {
+      url = url.slice(0, url.length - '.git'.length);
+    }
+
     if (url.slice(0, 'git+'.length) === 'git+') {
       return url.slice('git+'.length, url.length)
     }
@@ -326,6 +332,33 @@ export class PackageService {
     }
 
     return diffStr;
+  }
+
+  private normalizeReadme(readme:string, repoUrl:string): string {
+    const absoluteUrlRegExp = new RegExp('^(?:[a-z]+:)?//', 'i');
+
+    let urls = readme.match(/(?:!\[(.*?)\]\((.*?)\))/g);
+
+    for (let i = 0; i < urls.length; i++) {
+      let url = urls[i].match(/(\(.*?)\)/g)[0];
+      let relativePath = url.slice(1, url.length - 1);
+
+      if (relativePath[0] === '/') {
+        relativePath = relativePath.slice(1, relativePath.length);
+      }
+
+      if (absoluteUrlRegExp.test(relativePath) === false) {
+        if (repoUrl !== '') {
+          if (repoUrl[repoUrl.length] === '/') {
+            repoUrl = repoUrl.slice(0, repoUrl.length - 1);
+          }
+
+          readme = readme.replace(url, '(' + repoUrl + '/raw/master/' + relativePath + ')');
+        }
+      }
+    }
+
+    return readme;
   }
 
   private handleError(error:any): Promise<any> {
