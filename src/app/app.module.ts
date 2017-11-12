@@ -9,15 +9,15 @@ import { NgxPaginationModule }  from 'ngx-pagination';
 import { AppRoutingModule }     from './app-routing.module';
 
 import { AppComponent }         from './app.component';
-import { CardComponent }        from './card.component';
-import { HomeComponent }        from './home.component';
-import { PackageListComponent } from './package-list.component';
-import { SearchComponent }      from './search.component';
-import { PackageComponent }     from './package.component';
-import { AuthorComponent }      from './author.component';
+import { CardComponent }        from './components/card/card.component';
+import { HomeComponent }        from './pages/home/home.component';
+import { PackageListComponent } from './pages/package-list/package-list.component';
+import { SearchComponent }      from './pages/search/search.component';
+import { PackageComponent }     from './pages/package/package.component';
+import { AuthorComponent }      from './pages/author/author.component';
 
-import { PackageService }       from './package.service';
-import { LoaderService }        from './loader.service';
+import { PackageService }       from './providers/package.service';
+import { LoaderService }        from './providers/loader.service';
 
 @NgModule({
   imports: [

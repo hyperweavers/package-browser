@@ -3,7 +3,7 @@
     <div class="container">
       <div class="content">
         <a class="brand-content" routerLink="/">
-          <img class="logo" src="img/logo.svg" alt="Logo">
+          <img class="logo" src="assets/img/logo.svg" alt="Logo">
           <h1 class="title">Package Browser</h1>
         </a>
 
@@ -23,12 +23,12 @@
         <div class="page-header">
           <div class="author-info">
             <img *ngIf="(author.avatarUrl && author.avatarUrl !== ''); else defaultAvatar" class="author-avatar" width="150px" height="150px" src="{{author.avatarUrl}}" alt="">
-            <ng-template #defaultAvatar><img class="author-avatar" width="150px" height="150px" src="img/icon-avatar.png" alt=""></ng-template>
+            <ng-template #defaultAvatar><img class="author-avatar" width="150px" height="150px" src="assets/img/icon-avatar.png" alt=""></ng-template>
             <div class="author-name">{{author.name}}</div>
-            <div *ngIf="author.company && author.company !== ''" class="author-company-container"><img src="img/icon-company-20px.png" alt=""> <span>{{author.company}}</span></div>
-            <div *ngIf="author.location && author.location !== ''" class="author-location-container"><img src="img/icon-location-20px.png" alt=""> <span>{{author.location}}</span></div>
+            <div *ngIf="author.company && author.company !== ''" class="author-company-container"><img src="assets/img/icon-company-20px.png" alt=""> <span>{{author.company}}</span></div>
+            <div *ngIf="author.location && author.location !== ''" class="author-location-container"><img src="assets/img/icon-location-20px.png" alt=""> <span>{{author.location}}</span></div>
             <a *ngIf="author.homepage && author.homepage !== ''" class="author-url" href="{{author.homepage}}" target="_blank">
-              <img src="img/icon-github-24px.png" alt="">
+              <img src="assets/img/icon-github-24px.png" alt="">
             </a>
           </div>
         </div>
@@ -40,7 +40,7 @@
             <div *ngIf="last">
               <div class="page-header">
                 <div class="author-info">
-                  <img class="author-avatar" width="150px" height="150px" src="img/icon-avatar.png" alt="">
+                  <img class="author-avatar" width="150px" height="150px" src="assets/img/icon-avatar.png" alt="">
                   <div *ngIf="(package.authorName !== ''); else authorUsername" class="author-name">{{package.authorName}}</div>
                   <ng-template #authorUsername>
                     <div class="author-name">{{package.authorUsername}}</div>

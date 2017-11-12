@@ -5,11 +5,11 @@ import { Observable }                       from 'rxjs/Observable';
 
 import 'rxjs/add/operator/switchMap';
 
-import { Package }        from './package';
-import { Author }         from './author';
-import { PackageService } from './package.service';
-import { AuthorService }  from './author.service';
-import { LoaderService }  from './loader.service';
+import { Package }        from '../../entities/package';
+import { Author }         from '../../entities/author';
+import { PackageService } from '../../providers/package.service';
+import { AuthorService }  from '../../providers/author.service';
+import { LoaderService }  from '../../providers/loader.service';
 
 @Component({
   selector: 'author-page',

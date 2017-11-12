@@ -5,7 +5,7 @@ import { Observable }     from 'rxjs/Observable';
 
 import 'rxjs/add/operator/toPromise';
 
-import { Author }         from './author';
+import { Author }         from '../entities/author';
 
 @Injectable()
 export class AuthorService {

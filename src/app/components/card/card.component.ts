@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { Package }          from './package';
+import { Package }          from '../../entities/package';
 
 @Component({
   selector: 'card',

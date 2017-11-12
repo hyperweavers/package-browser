@@ -10,9 +10,9 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/switchMap';
 
-import { Package }        from './package';
-import { PackageService } from './package.service';
-import { LoaderService }  from './loader.service';
+import { Package }        from '../../entities/package';
+import { PackageService } from '../../providers/package.service';
+import { LoaderService }  from '../../providers/loader.service';
 
 @Component({
   selector: 'search-page',

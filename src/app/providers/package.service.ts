@@ -10,7 +10,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/share';
 import 'rxjs/add/operator/toPromise';
 
-import { Package }        from './package';
+import { Package }        from '../entities/package';
 
 @Injectable()
 export class PackageService {
@@ -206,9 +206,9 @@ export class PackageService {
 
     for (let i = 0; i < 5; ++i) {
       if (i < starRating) {
-        starImages.push('img/icon-star-filled-20px.svg');
+        starImages.push('assets/img/icon-star-filled-20px.svg');
       } else {
-        starImages.push('img/icon-star-blank-20px.svg');
+        starImages.push('assets/img/icon-star-blank-20px.svg');
       }
     }
 

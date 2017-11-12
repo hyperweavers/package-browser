@@ -10,36 +10,31 @@ header {
 }
 
 .brand {
-  background: #2c5499;
-}
-
-.brand-content,
-.brand-content:active,
-.brand-content:visited,
-.brand-content:hover
-{
-  float: left;
-  height: 60px;
-  margin: 15px auto;
-  color: #fff;
+  background: linear-gradient(-225deg, #2c5499, #3e97e6);
+  padding: 30px 0;
 }
 
 .brand img {
-  transform: scale(0.8);
   cursor: pointer;
 }
 
 h1 {
-  font-size: 2em;
+  font-size: 3em;
   font-weight: normal;
   line-height: 60px;
   cursor: pointer;
   display: inline-block;
 }
 
+h3 {
+  font-size: 1.375em;
+  font-weight: normal;
+  color: #bfd7ff;
+  line-height: 30px;
+}
+
 .search-box {
   position: relative;
-  float: right;
   width: 30%;
   min-width: 300px;
   margin: 15px auto;
@@ -47,7 +42,7 @@ h1 {
 
 #search-field {
   width: 100%;
-  background: url(../img/icon-search-32px.svg) no-repeat 16px 16px, rgba(255,255,255,0.4);
+  background: url(assets/img/icon-search-32px.svg) no-repeat 16px 16px, rgba(255,255,255,0.4);
   border: none;
   font-size: 1.5em;
   color: rgba(62, 151, 230, 0.87);;
@@ -56,7 +51,7 @@ h1 {
 
 #search-field:focus,
 #search-field:valid {
-  background: url(../img/icon-search-32px.svg) no-repeat 16px 16px, #fff;
+  background: url(assets/img/icon-search-32px.svg) no-repeat 16px 16px, #fff;
 }
 
 .search-box label {
@@ -73,46 +68,36 @@ h1 {
   display: none;
 }
 
+.brand a,
+.brand a:active,
+.brand a:visited {
+  text-transform: uppercase;
+  color: #fff;
+  font-size: 0.875em;
+}
+
+.brand a:hover {
+  opacity: 0.7;
+}
+
+.divider
+{
+  background: #2c5499;
+  font-size: 1.25em;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 32px;
+  padding: 24px;
+}
+
 .container .page {
   width: 100%;
   margin-top: 30px;
 }
 
-.section-header
-{
+.section-title {
   font-size: 1.5em;
   color: #78909C;
   margin-bottom: 20px;
-}
-
-.section-title
-{
-  float: left;
-}
-
-.sort-box
-{
-  float: right;
-}
-
-select
-{
-  background: none;
-  border: none;
-  font-family: inherit;
-  font-size: inherit;
-  font-style: italic;
-  padding: 5px;
-  background: #fff;
-  color: rgba(0, 0, 0, 0.5);
-  border: 2px solid rgba(0, 0, 0, 0.4);
-}
-
-select::-ms-expand
-{
-  background: none;
-  border: none;
-  color: inherit;
 }
 
 .card {
@@ -135,11 +120,6 @@ select::-ms-expand
 
 .card:hover {
   box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.4);
-}
-
-.pagination-container {
-  text-align: center;
-  margin: 20px 0;
 }
 
 .no-results {
@@ -170,6 +150,41 @@ select::-ms-expand
   width: 33%;
 }
 
+.publish-steps {
+  background: linear-gradient(45deg, #2c5499, #3e97e6);
+  text-align: center;
+  color: #fff;
+  padding-top: 30px;
+  padding-bottom: 10px;
+}
+
+.how-to {
+  font-size: 1.75em;
+  color: #bfd7ff;
+  margin-bottom: 30px;
+}
+
+.step-number {
+  width: 64px;
+  height: 64px;
+  float: left;
+  background: #fff;
+  border-radius: 50%;
+  font-size: 1.75em;
+  color: #2c5499;
+  line-height: 64px;
+  margin-right: 16px;
+}
+
+.step-content {
+  display: table-cell;
+  vertical-align: middle;
+  height: 64px;
+  font-size: 1.25em;
+  text-align: left;
+  margin-left: 24px;
+}
+
 @media only screen and (max-width: 1200px) {
   .container {
     width: 90%;
@@ -195,15 +210,6 @@ select::-ms-expand
 @media only screen and (max-width: 768px) {
   .container {
     width: 100%;
-  }
-
-  .section-header * {
-    float: none !important;
-    text-align: center;
-  }
-
-  .section-title {
-    margin-bottom: 20px;
   }
 
   .card {
