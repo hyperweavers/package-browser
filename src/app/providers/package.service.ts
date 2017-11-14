@@ -339,21 +339,23 @@ export class PackageService {
 
     let urls = readme.match(/(?:!\[(.*?)\]\((.*?)\))/g);
 
-    for (let i = 0; i < urls.length; i++) {
-      let url = urls[i].match(/(\(.*?)\)/g)[0];
-      let relativePath = url.slice(1, url.length - 1);
+    if (urls !== null) {
+      for (let i = 0; i < urls.length; i++) {
+        let url = urls[i].match(/(\(.*?)\)/g)[0];
+        let relativePath = url.slice(1, url.length - 1);
 
-      if (relativePath[0] === '/') {
-        relativePath = relativePath.slice(1, relativePath.length);
-      }
+        if (relativePath[0] === '/') {
+          relativePath = relativePath.slice(1, relativePath.length);
+        }
 
-      if (absoluteUrlRegExp.test(relativePath) === false) {
-        if (repoUrl !== '') {
-          if (repoUrl[repoUrl.length] === '/') {
-            repoUrl = repoUrl.slice(0, repoUrl.length - 1);
+        if (absoluteUrlRegExp.test(relativePath) === false) {
+          if (repoUrl !== '') {
+            if (repoUrl[repoUrl.length] === '/') {
+              repoUrl = repoUrl.slice(0, repoUrl.length - 1);
+            }
+
+            readme = readme.replace(url, '(' + repoUrl + '/raw/master/' + relativePath + ')');
           }
-
-          readme = readme.replace(url, '(' + repoUrl + '/raw/master/' + relativePath + ')');
         }
       }
     }
