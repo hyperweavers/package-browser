@@ -3,7 +3,7 @@
     <div class="container">
       <div class="content">
         <a class="brand-content" routerLink="/">
-          <img class="logo" src="assets/img/logo.svg" alt="Logo">
+          <img class="logo" src="../../../assets/img/logo.svg" alt="Logo">
           <h1 class="title">Package Browser</h1>
         </a>
 
@@ -43,14 +43,14 @@
               <div class="col col-2">
                 <div class="pkg-btn-container">
                   <a *ngIf="package.homepage && package.homepage !== ''" class="pkg-home-page btn" href="{{package.homepage}}" target="_blank">
-                    <img src="assets/img/icon-globe-24px.png" width="20px" height="20px" alt="">
+                    <img src="../../../assets/img/icon-globe-24px.png" width="20px" height="20px" alt="">
                     <span>Website</span>
                   </a>
 
                   <a *ngIf="package.repoUrl && package.repoUrl !== ''" class="pkg-git-page btn" href="{{package.repoUrl}}" target="_blank">
-                    <img *ngIf="(package.repoType === 'git'); else repoIcon" src="assets/img/icon-github-20px.png" alt="">
+                    <img *ngIf="(package.repoType === 'git'); else repoIcon" src="../../../assets/img/icon-github-20px.png" alt="">
                     <ng-template #repoIcon>
-                      <img src="assets/img/icon-repo-20px.svg" alt="">
+                      <img src="../../../assets/img/icon-repo-20px.svg" alt="">
                     </ng-template>
                     <span *ngIf="(package.repoType === 'git'); else repoText">GitHub</span>
                     <ng-template #repoText>
@@ -81,7 +81,7 @@
                   <div class="pkg-npm-install">npm install <span class="pkg-full-name">{{package.name}}</span></div>
 
                   <a class="pkg-git-download btn" href="{{package.downloadUrl}}" target="_blank">
-                    <img src="assets/img/icon-download-20px.png" alt="">
+                    <img src="../../../assets/img/icon-download-20px.png" alt="">
                     <span>Download</span>
                   </a>
                 </div>
@@ -90,12 +90,12 @@
                   <div class="pkg-details-card-header">Activity</div>
 
                   <div class="pkg-activity-info">
-                    <img src="assets/img/icon-sync-20px.svg" alt="">
+                    <img src="../../../assets/img/icon-sync-20px.svg" alt="">
                     <span class="pkg-updated-date">Last updated <strong>{{package.prettyLastModifiedTime}}</strong></span>
                   </div>
 
                   <div class="pkg-activity-info">
-                    <img src="assets/img/icon-clock-20px.svg" alt="">
+                    <img src="../../../assets/img/icon-clock-20px.svg" alt="">
                     <span class="pkg-created-date">Created <strong>{{package.prettyPublishDate}}</strong></span>
                   </div>
                 </div>

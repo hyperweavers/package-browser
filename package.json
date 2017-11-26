@@ -3,38 +3,57 @@
   "version": "1.0.0",
   "private": true,
   "description": "An explorer/search engine for JavaScript packages for web development.",
-  "keywords": [
-    "components"
-  ],
-  "author": "Kesavamoorthi Subramanian",
   "license": "MIT",
+  "keywords": [
+    "npm",
+    "node",
+    "package"
+  ],
+  "author": {
+    "name": "Kesavamoorthi Subramanian",
+    "email": "k7moorthi@gmail.com",
+    "url": "https://www.kesavamoorthi.com/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://www.github.com/k7moorthi/package-browser"
+  },
+  "bugs": {
+    "url": "https://www.github.com/k7moorthi/package-browser/issues",
+    "email": "k7moorthi@gmail.com"
+  },
   "scripts": {
-    "start": "concurrently \"npm run build:watch\" \"npm run serve\"",
-    "build:watch": "tsc -p src/ -w",
-    "serve": "lite-server -c=bs-config.json"
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "dist": "ng build --prod",
+    "lint": "ng lint"
   },
   "dependencies": {
-    "@angular/common": "~4.3.1",
-    "@angular/compiler": "~4.3.1",
-    "@angular/core": "~4.3.1",
-    "@angular/platform-browser": "~4.3.1",
-    "@angular/platform-browser-dynamic": "~4.3.1",
-    "@angular/forms": "~4.3.1",
-    "@angular/http": "~4.3.1",
-    "@angular/router": "~4.3.1",
-    "rxjs": "^5.1.0",
+    "@angular/animations": "^5.0.0",
+    "@angular/common": "^5.0.0",
+    "@angular/compiler": "^5.0.0",
+    "@angular/core": "^5.0.0",
+    "@angular/forms": "^5.0.0",
+    "@angular/http": "^5.0.0",
+    "@angular/platform-browser": "^5.0.0",
+    "@angular/platform-browser-dynamic": "^5.0.0",
+    "@angular/router": "^5.0.0",
     "core-js": "^2.4.1",
-    "systemjs": "0.19.39",
-    "zone.js": "^0.8.4",
-    "angular2-markdown": "^1.6.0",
-    "github-markdown-css": "^2.8.0",
-    "ngx-pagination": "^3.0.1"
+    "rxjs": "^5.5.2",
+    "zone.js": "^0.8.14",
+    "angular2-markdown": "^2.1.0",
+    "github-markdown-css": "^2.9.0",
+    "ngx-pagination": "^3.0.3"
   },
   "devDependencies": {
-    "@angular/cli": "^1.5.0",
-    "concurrently": "^3.0.0",
-    "lite-server": "^2.2.2",
-    "typescript": "~2.3.2"
-  },
-  "repository": {}
+    "@angular/cli": "1.5.4",
+    "@angular/compiler-cli": "^5.0.0",
+    "@angular/language-service": "^5.0.0",
+    "@types/node": "~6.0.60",
+    "codelyzer": "^4.0.1",
+    "ts-node": "~3.2.0",
+    "tslint": "~5.7.0",
+    "typescript": "~2.4.2"
+  }
 }
