@@ -2,12 +2,9 @@ import { NgModule }             from '@angular/core';
 import { BrowserModule }        from '@angular/platform-browser';
 import { FormsModule }          from '@angular/forms';
 import { HttpModule }           from '@angular/http';
-import { ServiceWorkerModule }  from '@angular/service-worker';
 
 import { MarkdownModule }       from 'angular2-markdown';
 import { NgxPaginationModule }  from 'ngx-pagination';
-
-import { environment }          from '../environments/environment';
 
 import { AppRoutingModule }     from './app-routing.module';
 
@@ -29,8 +26,7 @@ import { LoaderService }        from './providers/loader.service';
     HttpModule,
     MarkdownModule.forRoot(),
     NgxPaginationModule,
-    AppRoutingModule,
-    environment.production ? ServiceWorkerModule.register('/ngsw-worker.js') : []
+    AppRoutingModule
   ],
   declarations: [
     AppComponent,
