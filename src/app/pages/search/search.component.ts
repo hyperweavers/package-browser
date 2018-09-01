@@ -1,29 +1,25 @@
-import { Component, OnInit }      from '@angular/core';
-import { ElementRef, ViewChild }  from '@angular/core';
-import { Router }                 from '@angular/router';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { ElementRef, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 
-import { Observable }             from 'rxjs/Observable';
-import { Subject }                from 'rxjs/Subject';
+import { Observable, Subject, of } from 'rxjs';
 
-import 'rxjs/add/observable/of';
+import { catchError, switchMap } from 'rxjs/operators';
 
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/switchMap';
-
-import { Package }        from '../../entities/package';
+import { Package } from '../../entities/package';
 import { PackageService } from '../../providers/package.service';
-import { LoaderService }  from '../../providers/loader.service';
+import { LoaderService } from '../../providers/loader.service';
 
 @Component({
-  selector: 'search-page',
+  selector: 'pb-search-page',
   templateUrl: './search.component.html',
-  styleUrls: [ './search.component.css' ]
+  styleUrls: ['./search.component.css']
 })
 
-export class SearchComponent implements OnInit {
-  @ViewChild('searchBox') searchBox:ElementRef;
+export class SearchComponent implements OnInit, AfterViewInit {
+  @ViewChild('searchBox') searchBox: ElementRef;
 
-  private keywords = new Subject<string>();
+  private keywords: Subject<String> = new Subject<string>();
 
   packages: Observable<Package[]>;
   totalPackages: number;
@@ -34,7 +30,7 @@ export class SearchComponent implements OnInit {
     private packageService: PackageService,
     private loaderService: LoaderService,
     private router: Router) {
-      packageService.count$.subscribe(count => this.totalPackages = count);
+    packageService.count$.subscribe(count => this.totalPackages = count);
   }
 
   search(keyword: string): void {
@@ -65,16 +61,18 @@ export class SearchComponent implements OnInit {
 
   ngOnInit(): void {
     this.packages = this.keywords
-      .switchMap(keyword => keyword
-        ? this.packageService.searchByKeyword(keyword, this.sortBy, this.page)
-        : Observable.of<Package[]>([]))
-      .catch(error => {
-        console.log(error);
+      .pipe(
+        switchMap((keyword: string) => keyword
+          ? this.packageService.searchByKeyword(keyword, this.sortBy, this.page)
+          : of<Package[]>([])),
+        catchError(error => {
+          console.log(error);
 
-        return Observable.of<Package[]>([]);
-      });
+          return of<Package[]>([]);
+        })
+      );
 
-      this.packages.subscribe(packages => this.loaderService.hide());
+    this.packages.subscribe(packages => this.loaderService.hide());
   }
 
   ngAfterViewInit(): void {

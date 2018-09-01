@@ -1,28 +1,24 @@
-import { Injectable }     from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 
-import { Observable }     from 'rxjs/Observable';
-
-import 'rxjs/add/operator/toPromise';
-
-import { Author }         from '../entities/author';
+import { Author } from '../entities/author';
 
 @Injectable()
 export class AuthorService {
-  private baseUrl = 'https://api.github.com';
+  private baseUrl: string = 'https://api.github.com';
 
-  constructor(private http: Http) {}
+  constructor(private http: Http) { }
 
-  getAuthor(name : string): Promise<Author> {
+  getAuthor(name: string): Promise<Author> {
     return this.http
-            .get(`${this.baseUrl}/users/${name}`)
-            .toPromise()
-            .then(this.mapAuthor)
-            .catch(this.handleError);
+      .get(`${this.baseUrl}/users/${name}`)
+      .toPromise()
+      .then(this.mapAuthor)
+      .catch(this.handleError);
   }
 
-  private mapAuthor(response:Response): Author {
-    let res = response.json();
+  private mapAuthor(response: Response): Author {
+    const res = response.json();
 
     let url = '';
 
@@ -32,7 +28,7 @@ export class AuthorService {
       url = res.html_url;
     }
 
-    let author = <Author>({
+    const author = <Author>({
       userName: res.login,
       name: res.name,
       avatarUrl: res.avatar_url,

@@ -1,21 +1,21 @@
-import { Component, OnInit }                from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
-import { Observable }                       from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
-import 'rxjs/add/operator/switchMap';
+import { switchMap } from 'rxjs/operators';
 
-import { Package }        from '../../entities/package';
-import { Author }         from '../../entities/author';
+import { Package } from '../../entities/package';
+import { Author } from '../../entities/author';
 import { PackageService } from '../../providers/package.service';
-import { AuthorService }  from '../../providers/author.service';
-import { LoaderService }  from '../../providers/loader.service';
+import { AuthorService } from '../../providers/author.service';
+import { LoaderService } from '../../providers/loader.service';
 
 @Component({
   selector: 'author-page',
   templateUrl: './author.component.html',
-  styleUrls: [ './author.component.css' ],
-  providers: [ AuthorService ]
+  styleUrls: ['./author.component.css'],
+  providers: [AuthorService]
 })
 
 export class AuthorComponent implements OnInit {
@@ -32,9 +32,9 @@ export class AuthorComponent implements OnInit {
     private loaderService: LoaderService,
     private route: ActivatedRoute,
     private router: Router) {
-      loaderService.show();
+    loaderService.show();
 
-      packageService.count$.subscribe(count => this.totalPackages = count);
+    packageService.count$.subscribe(count => this.totalPackages = count);
   }
 
   loadSearchPage(): void {
@@ -75,7 +75,9 @@ export class AuthorComponent implements OnInit {
     let isAuthorDetailsLoaded = false;
 
     this.route.paramMap
-      .switchMap((params: ParamMap) => this.loadPackages(params.get('name')))
+      .pipe(
+        switchMap((params: ParamMap) => this.loadPackages(params.get('name')))
+      )
       .subscribe(packages => {
         this.packages = packages;
 
@@ -87,7 +89,9 @@ export class AuthorComponent implements OnInit {
       });
 
     this.route.paramMap
-      .switchMap((params: ParamMap) => this.authorService.getAuthor(params.get('name')))
+      .pipe(
+        switchMap((params: ParamMap) => this.authorService.getAuthor(params.get('name')))
+      )
       .subscribe(author => {
         this.author = author;
 

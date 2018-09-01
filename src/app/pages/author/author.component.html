@@ -69,7 +69,7 @@
           </div>
 
           <div>
-            <card *ngFor="let package of packages | paginate: { itemsPerPage: 18, currentPage: page, totalItems: totalPackages }" [package]="package" class="card"></card>
+            <pb-card *ngFor="let package of packages | paginate: { itemsPerPage: 18, currentPage: page, totalItems: totalPackages }" [package]="package" class="card"></pb-card>
           </div>
 
           <div class="pagination-container">

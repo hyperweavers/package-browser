@@ -1,23 +1,17 @@
-import { Injectable }     from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 
-import { Observable }     from 'rxjs/Observable';
-import { Subject }        from 'rxjs/Subject';
+import { Observable, Subject, of } from 'rxjs';
+import { map, share } from 'rxjs/operators';
 
-import 'rxjs/add/observable/of';
-
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/share';
-import 'rxjs/add/operator/toPromise';
-
-import { Package }        from '../entities/package';
+import { Package } from '../entities/package';
 
 @Injectable()
 export class PackageService {
-  private baseUrl = 'https://registry.npmjs.org';
-  private corsAnywhereUrl = 'https://cors-anywhere.herokuapp.com/';
-  private npmPkgUrl = 'https://www.npmjs.com/package/';
-  private packagesPerPage = 18;
+  private baseUrl: string = 'https://registry.npmjs.org';
+  private corsAnywhereUrl: string = 'https://cors-anywhere.herokuapp.com/';
+  private npmPkgUrl: string = 'https://www.npmjs.com/package/';
+  private packagesPerPage: number = 18;
   private queryResultCount: Subject<number>;
 
   count$: Observable<number>;
@@ -28,7 +22,7 @@ export class PackageService {
     this.count$ = this.queryResultCount.asObservable();
   }
 
-  searchByKeyword(keyword:string, sortBy?: string, page?: number): Observable<Package[]> {
+  searchByKeyword(keyword: string, sortBy?: string, page?: number): Observable<Package[]> {
     let url = '';
     let from = 0;
 
@@ -56,11 +50,13 @@ export class PackageService {
     }
 
     return this.http
-            .get(`${url}&text=${keyword}&from=${from}&size=${this.packagesPerPage}`)
-            .map(this.mapPackages.bind(this));
+      .get(`${url}&text=${keyword}&from=${from}&size=${this.packagesPerPage}`)
+      .pipe(
+        map(this.mapPackages.bind(this))
+      );
   }
 
-  searchByAuthor(author:string, sortBy?: string, page?: number): Observable<Package[]> {
+  searchByAuthor(author: string, sortBy?: string, page?: number): Observable<Package[]> {
     let url = '';
     let from = 0;
 
@@ -88,16 +84,18 @@ export class PackageService {
     }
 
     return this.http
-            .get(`${url}&text=author:${author}&from=${from}&size=${this.packagesPerPage}`)
-            .map(this.mapPackages.bind(this));
+      .get(`${url}&text=author:${author}&from=${from}&size=${this.packagesPerPage}`)
+      .pipe(
+        map(this.mapPackages.bind(this))
+      );
   }
 
-  getPackage(name:string): Promise<Package> {
+  getPackage(name: string): Promise<Package> {
     return this.http
-            .get(`${this.corsAnywhereUrl}${this.baseUrl}/${name}`)
-            .toPromise()
-            .then(this.mapPackage.bind(this))
-            .catch(this.handleError);
+      .get(`${this.corsAnywhereUrl}${this.baseUrl}/${name}`)
+      .toPromise()
+      .then(this.mapPackage.bind(this))
+      .catch(this.handleError);
   }
 
   getPackages(sortBy: string, page?: number): Observable<Package[]> {
@@ -128,25 +126,29 @@ export class PackageService {
     }
 
     return this.http
-            .get(`${url}&from=${from}&size=${this.packagesPerPage}`)
-            .share()
-            .map(this.mapPackages.bind(this));
+      .get(`${url}&from=${from}&size=${this.packagesPerPage}`)
+      .pipe(
+        share(),
+        map(this.mapPackages.bind(this))
+      );
   }
 
-  private mapPackage(response:Response, packageName:string): Package {
+  private mapPackage(response: Response, packageName: string): Package {
     this.queryResultCount.next(1);
 
-    let res = response.json();
+    const res = response.json();
 
     let pkg = null;
 
     if (res.error === undefined && res.reason === undefined) {
-      let repoUrl = res.repository.url ? this.sanitizeUrl(res.repository.url) : '';
+      const repoUrl = res.repository.url ? this.sanitizeUrl(res.repository.url) : '';
 
-      let dependencyList = [];
+      const dependencyList = [];
 
-      for (let dependency in res.versions[res['dist-tags'].latest].dependencies) {
-        dependencyList.push(dependency);
+      for (const dependency in res.versions[res['dist-tags'].latest].dependencies) {
+        if (dependency !== undefined && dependency !== null) {
+          dependencyList.push(dependency);
+        }
       }
 
       pkg = <Package>({
@@ -176,8 +178,8 @@ export class PackageService {
     return pkg;
   }
 
-  private mapPackages(response:Response): Observable<Package[]> {
-    let res = response.json();
+  private mapPackages(response: Response): Observable<Package[]> {
+    const res = response.json();
 
     if (res.objects.length > 0) {
       console.log('Results found!');
@@ -186,15 +188,15 @@ export class PackageService {
 
       return res.objects.map(this.toPackage.bind(this));
     } else {
-      console.info('No results found for the given keyword!');
+      console.log('No results found for the given keyword!');
 
       this.queryResultCount.next(0);
 
-      return Observable.of<Package[]>([]);
+      return of<Package[]>([]);
     }
   }
 
-  private toPackage(obj:any): Package {
+  private toPackage(obj: any): Package {
     let repoType = '';
 
     if (obj.package.links.repository) {
@@ -203,8 +205,8 @@ export class PackageService {
       }
     }
 
-    let starRating = Math.round((obj.score.final * 10) / 2);
-    let starImages = [];
+    const starRating = Math.round((obj.score.final * 10) / 2);
+    const starImages = [];
 
     for (let i = 0; i < 5; ++i) {
       if (i < starRating) {
@@ -214,7 +216,7 @@ export class PackageService {
       }
     }
 
-    let pkg = <Package>({
+    const pkg = <Package>({
       name: obj.package.name,
       version: obj.package.version,
       desc: obj.package.description,
@@ -235,49 +237,49 @@ export class PackageService {
     return pkg;
   }
 
-  private isGithubUrl(url:string): boolean {
+  private isGithubUrl(url: string): boolean {
     return url.slice(0, 'http://github.com'.length) === 'http://github.com' ||
-           url.slice(0, 'https://github.com'.length) === 'https://github.com' ||
-           url.slice(0, 'git://github.com'.length) === 'git://github.com';
+      url.slice(0, 'https://github.com'.length) === 'https://github.com' ||
+      url.slice(0, 'git://github.com'.length) === 'git://github.com';
   }
 
-  private sanitizeUrl(url:string): string {
+  private sanitizeUrl(url: string): string {
     if (url.slice(url.length - '.git'.length, url.length) === '.git') {
       url = url.slice(0, url.length - '.git'.length);
     }
 
     if (url.slice(0, 'git+'.length) === 'git+') {
-      return url.slice('git+'.length, url.length)
+      return url.slice('git+'.length, url.length);
     }
 
     if (url.slice(0, 'git://'.length) === 'git://') {
-      return 'http' + url.slice('git'.length, url.length)
+      return 'http' + url.slice('git'.length, url.length);
     }
 
     return '';
   }
 
-  private prettyDate(time:string): string {
+  private prettyDate(time: string): string {
     if (time.indexOf('.') !== -1) {
-      time = time.slice(0, time.indexOf('.')) + 'Z'
+      time = time.slice(0, time.indexOf('.')) + 'Z';
     }
 
-    var date1 = new Date((time || ''));
-    var date2 = new Date();
-    var second = 1000, minute = second*60, hour = minute*60, day = hour*24, week = day*7;
-    var diff = Math.abs((<any> date2) - (<any> date1));
-    var diffObj = {
-        years         : Math.abs(date2.getFullYear() - date1.getFullYear()),
-        months        : Math.abs((date2.getFullYear() * 12 + date2.getMonth()) - (date1.getFullYear() * 12 + date1.getMonth())),
-        weeks         : Math.floor(diff / week),
-        days          : Math.floor(diff / day),
-        hours         : Math.floor(diff / hour),
-        minutes       : Math.floor(diff / minute),
-        seconds       : Math.floor(diff / second),
-        milliseconds  : Math.floor(diff % 1000)
+    const date1 = new Date((time || ''));
+    const date2 = new Date();
+    const second = 1000, minute = second * 60, hour = minute * 60, day = hour * 24, week = day * 7;
+    const diff = Math.abs((<any>date2) - (<any>date1));
+    const diffObj = {
+      years: Math.abs(date2.getFullYear() - date1.getFullYear()),
+      months: Math.abs((date2.getFullYear() * 12 + date2.getMonth()) - (date1.getFullYear() * 12 + date1.getMonth())),
+      weeks: Math.floor(diff / week),
+      days: Math.floor(diff / day),
+      hours: Math.floor(diff / hour),
+      minutes: Math.floor(diff / minute),
+      seconds: Math.floor(diff / second),
+      milliseconds: Math.floor(diff % 1000)
     };
 
-    var diffStr = '';
+    let diffStr = '';
 
     if (diffObj.years > 0) {
       if (diffObj.years === 1) {
@@ -334,14 +336,14 @@ export class PackageService {
     return diffStr;
   }
 
-  private normalizeReadme(readme:string, repoUrl:string): string {
+  private normalizeReadme(readme: string, repoUrl: string): string {
     const absoluteUrlRegExp = new RegExp('^(?:[a-z]+:)?//', 'i');
 
-    let urls = readme.match(/(?:!\[(.*?)\]\((.*?)\))/g);
+    const urls = readme.match(/(?:!\[(.*?)\]\((.*?)\))/g);
 
     if (urls !== null) {
       for (let i = 0; i < urls.length; i++) {
-        let url = urls[i].match(/(\(.*?)\)/g)[0];
+        const url = urls[i].match(/(\(.*?)\)/g)[0];
         let relativePath = url.slice(1, url.length - 1);
 
         if (relativePath[0] === '/') {
@@ -363,7 +365,7 @@ export class PackageService {
     return readme;
   }
 
-  private handleError(error:any): Promise<any> {
+  private handleError(error: any): Promise<any> {
     console.error('An error occurred', error);
 
     return Promise.reject(error.message || error);

@@ -1,16 +1,16 @@
-import { Component, OnInit }  from '@angular/core';
-import { Router }             from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
-import { Observable }         from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
-import { Package }        from '../../entities/package';
+import { Package } from '../../entities/package';
 import { PackageService } from '../../providers/package.service';
-import { LoaderService }  from '../../providers/loader.service';
+import { LoaderService } from '../../providers/loader.service';
 
 @Component({
-  selector: 'home-page',
+  selector: 'pb-home-page',
   templateUrl: './home.component.html',
-  styleUrls: [ './home.component.css' ]
+  styleUrls: ['./home.component.css']
 })
 
 export class HomeComponent implements OnInit {
@@ -21,9 +21,9 @@ export class HomeComponent implements OnInit {
     private packageService: PackageService,
     private loaderService: LoaderService,
     private router: Router) {
-      loaderService.show();
+    loaderService.show();
 
-      packageService.count$.subscribe(count => this.totalPackages = count);
+    packageService.count$.subscribe(count => this.totalPackages = count);
   }
 
   loadSearchPage(): void {

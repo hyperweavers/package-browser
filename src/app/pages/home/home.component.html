@@ -34,7 +34,7 @@
       <div [class.page]="(packages | async)?.length">
         <div *ngIf="((packages | async)?.length); else resultMsg">
           <div class="section-title">Most Popular Packages</div>
-          <card *ngFor="let package of packages | async" [package]="package" class="card"></card>
+          <pb-card *ngFor="let package of packages | async" [package]="package" class="card"></pb-card>
         </div>
       </div>
 

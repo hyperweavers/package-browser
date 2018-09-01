@@ -1,19 +1,19 @@
-import { Component, OnInit }        from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { Router }                   from '@angular/router';
+import { Router } from '@angular/router';
 
-import { Observable }               from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
-import 'rxjs/add/operator/switchMap';
+import { switchMap } from 'rxjs/operators';
 
-import { Package }        from '../../entities/package';
+import { Package } from '../../entities/package';
 import { PackageService } from '../../providers/package.service';
-import { LoaderService }  from '../../providers/loader.service';
+import { LoaderService } from '../../providers/loader.service';
 
 @Component({
-  selector: 'package-list',
+  selector: 'pb-package-list',
   templateUrl: './package-list.component.html',
-  styleUrls: [ './package-list.component.css' ]
+  styleUrls: ['./package-list.component.css']
 })
 
 export class PackageListComponent implements OnInit {
@@ -27,9 +27,9 @@ export class PackageListComponent implements OnInit {
     private loaderService: LoaderService,
     private route: ActivatedRoute,
     private router: Router) {
-      loaderService.show();
+    loaderService.show();
 
-      packageService.count$.subscribe(count => this.totalPackages = count);
+    packageService.count$.subscribe(count => this.totalPackages = count);
   }
 
   loadSearchPage(): void {
@@ -60,7 +60,9 @@ export class PackageListComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.paramMap
-      .switchMap((params: ParamMap) => this.loadPackages(params.get('sortBy')))
+      .pipe(
+        switchMap((params: ParamMap) => this.loadPackages(params.get('sortBy')))
+      )
       .subscribe(packages => {
         this.packages = packages;
 
@@ -69,7 +71,7 @@ export class PackageListComponent implements OnInit {
   }
 
   private loadPackages(sortBy: string): Observable<Package[]> {
-   this.packages = [];
+    this.packages = [];
 
     this.sortBy = sortBy;
 
