@@ -1,25 +1,28 @@
 {
   "name": "package-browser",
   "version": "1.0.0",
-  "private": true,
   "description": "An explorer/search engine for JavaScript packages for web development.",
-  "license": "MIT",
+  "homepage": "https://package-browser.kesavamoorthi.com",
+  "license": "GPL-3.0-only",
+  "private": true,
   "keywords": [
     "npm",
     "node",
-    "package"
+    "package",
+    "browser",
+    "explorer"
   ],
   "author": {
     "name": "Kesavamoorthi Subramanian",
     "email": "k7moorthi@gmail.com",
-    "url": "https://www.kesavamoorthi.com/"
+    "url": "https://www.kesavamoorthi.com"
   },
   "repository": {
     "type": "git",
-    "url": "https://www.github.com/k7moorthi/package-browser"
+    "url": "https://www.github.com/HyperWeavers/package-browser"
   },
   "bugs": {
-    "url": "https://www.github.com/k7moorthi/package-browser/issues",
+    "url": "https://www.github.com/HyperWeavers/package-browser/issues",
     "email": "k7moorthi@gmail.com"
   },
   "scripts": {
