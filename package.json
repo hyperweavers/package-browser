@@ -61,5 +61,9 @@
     "ts-node": "~5.0.1",
     "tslint": "~5.9.1",
     "typescript": "~2.7.2"
+  },
+  "engines": {
+    "node": "14.x",
+    "npm": "6.x"
   }
 }
