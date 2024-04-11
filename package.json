@@ -30,6 +30,7 @@
     "start": "ng serve",
     "build": "ng build",
     "dist": "ng build --prod",
+    "deploy": "ng build --prod --outputPath docs --baseHref ./ && cp docs/index.html docs/404.html && echo 'package-browser.hyperweavers.com' > docs/CNAME",
     "lint": "ng lint"
   },
   "dependencies": {
