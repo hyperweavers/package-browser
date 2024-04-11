@@ -13,16 +13,16 @@
     "explorer"
   ],
   "author": {
-    "name": "Kesavamoorthi Subramanian",
-    "email": "k7moorthi@gmail.com",
-    "url": "https://www.kesavamoorthi.com"
+    "name": "HyperWeavers",
+    "email": "info@hyperweavers.com",
+    "url": "https://www.hyperweavers.com"
   },
   "repository": {
     "type": "git",
-    "url": "https://www.github.com/HyperWeavers/package-browser"
+    "url": "https://www.github.com/hyperweavers/package-browser"
   },
   "bugs": {
-    "url": "https://www.github.com/HyperWeavers/package-browser/issues",
+    "url": "https://www.github.com/hyperweavers/package-browser/issues",
     "email": "k7moorthi@gmail.com"
   },
   "scripts": {
